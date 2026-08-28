@@ -1,0 +1,1849 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glenn Smith Epoxy | Built on Prep. Finished with Pride.</title>
+<meta name="description" content="Premium residential, commercial, and industrial epoxy flooring across East Tennessee. Metallic epoxy, chip/flake systems, concrete polishing. Free, no-pressure quotes — most responses within one business day.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Glenn Smith Epoxy — Built on Prep. Finished with Pride.">
+<meta property="og:description" content="High-performance epoxy floors for homes, businesses, and the spaces that work as hard as you do. Serving East Tennessee.">
+<meta property="og:url" content="https://glennsmithepoxy.com/">
+<link rel="canonical" href="https://glennsmithepoxy.com/">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
+<meta property="og:image" content="https://glennsmithepoxy.com/assets/logo.png">
+<meta name="theme-color" content="#0b0f14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Glenn Smith Epoxy",
+  "description": "Premium residential, commercial, and industrial epoxy flooring across East Tennessee.",
+  "url": "https://glennsmithepoxy.com/",
+  "telephone": "+18658013736",
+  "email": "contact@glennsmithepoxy.com",
+  "areaServed": { "@type": "AdministrativeArea", "name": "East Tennessee" },
+  "priceRange": "$$",
+  "openingHours": "Mo-Sa 08:00-18:00",
+  "makesOffer": [
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Chip/Flake Epoxy Flooring" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Metallic Epoxy Flooring" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Concrete Polishing & Sealing" } }
+  ]
+}
+</script>
+<style>
+/* ============================================================
+   GLENN SMITH EPOXY — design system
+   ============================================================ */
+:root{
+  --bg:        #0b0f14;
+  --bg-2:      #101720;
+  --panel:     #131c26;
+  --panel-2:   #182230;
+  --line:      rgba(148,178,205,.14);
+  --line-hi:   rgba(148,178,205,.28);
+  --text:      #e9eff5;
+  --muted:     #8fa3b8;
+  --cyan:      #22d3ee;
+  --cyan-dim:  #0e7490;
+  --copper:    #3f7fd9;
+  --copper-hi: #6aa3f0;
+  --glow-cyan: rgba(34,211,238,.35);
+  --glow-copper: rgba(90,150,235,.32);
+  --radius:    18px;
+  --font-head: "Racing Sans One", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --ease-out:  cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--cyan);color:#04121a}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.04;font-weight:400;letter-spacing:.015em}
+h1,.sec-title,.final-cta h2,.about-motto{text-transform:uppercase}
+
+/* custom cursor resin blob (desktop only) */
+.cursor-glow{
+  position:fixed;width:340px;height:340px;border-radius:50%;
+  pointer-events:none;z-index:1;
+  background:radial-gradient(circle, rgba(34,211,238,.10) 0%, rgba(232,135,58,.05) 40%, transparent 70%);
+  transform:translate(-50%,-50%);
+  transition:opacity .4s;
+  opacity:0;
+}
+@media (hover:hover) and (pointer:fine){ .cursor-glow{opacity:1} }
+
+/* ---------- layout helpers ---------- */
+.wrap{width:min(1180px, 92vw);margin:0 auto;position:relative;z-index:2}
+section{position:relative;padding:clamp(72px,9vw,130px) 0}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:18px;
+}
+.eyebrow::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,var(--cyan),transparent)}
+.sec-title{font-size:clamp(28px,4.2vw,50px);margin-bottom:18px;text-transform:uppercase}
+.sec-sub{color:var(--muted);max-width:560px;font-size:17px}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- nav ---------- */
+header{
+  position:fixed;inset:0 0 auto 0;z-index:50;
+  transition:background .4s,border-color .4s,backdrop-filter .4s;
+  border-bottom:1px solid transparent;
+}
+header.scrolled{
+  background:rgba(11,15,20,.78);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom-color:var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--font-head);font-weight:400;font-size:19px;letter-spacing:.02em;text-transform:none}
+.brand img{flex:none;filter:drop-shadow(0 2px 10px rgba(90,150,235,.35))}
+.brand small{display:block;font-family:var(--font-body);font-weight:500;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:34px;list-style:none}
+.nav-links a{text-decoration:none;font-size:14.5px;font-weight:500;color:var(--muted);transition:color .25s;position:relative}
+.nav-links a:hover{color:var(--text)}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:linear-gradient(90deg,var(--cyan),var(--copper));transition:width .3s var(--ease-out)}
+.nav-links a:hover::after{width:100%}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 26px;border-radius:999px;border:0;cursor:pointer;
+  font-family:var(--font-head);font-weight:400;letter-spacing:.03em;font-size:15px;text-decoration:none;
+  transition:transform .3s var(--ease-out),box-shadow .3s,background .3s;
+  will-change:transform;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--copper) 0%,var(--copper-hi) 100%);
+  color:#0a1526;
+  box-shadow:0 8px 30px -8px var(--glow-copper), inset 0 1px 0 rgba(255,255,255,.35);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px -8px var(--glow-copper), inset 0 1px 0 rgba(255,255,255,.35)}
+.btn-ghost{
+  background:rgba(34,211,238,.07);color:var(--cyan);
+  border:1px solid rgba(34,211,238,.35);
+}
+.btn-ghost:hover{background:rgba(34,211,238,.14);transform:translateY(-2px)}
+.btn-sm{padding:10px 20px;font-size:14px}
+.nav-cta{display:flex;align-items:center;gap:14px}
+.burger{display:none;background:none;border:0;cursor:pointer;padding:8px}
+.burger span{display:block;width:24px;height:2px;background:var(--text);margin:5px 0;transition:transform .3s,opacity .3s}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (max-width:900px){
+  .burger{display:block}
+  .nav-links{
+    position:fixed;inset:76px 0 auto 0;flex-direction:column;gap:0;
+    background:rgba(11,15,20,.97);backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);
+    padding:10px 5vw 26px;
+    transform:translateY(-130%);transition:transform .45s var(--ease-out);
+  }
+  .nav-links.open{transform:none}
+  .nav-links li{width:100%}
+  .nav-links a{display:block;padding:15px 0;font-size:17px;border-bottom:1px solid var(--line)}
+}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 80px;overflow:hidden}
+#resin-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 110%, rgba(63,127,217,.10), transparent 60%),
+    linear-gradient(180deg, rgba(11,15,20,.42) 0%, rgba(11,15,20,.18) 40%, var(--bg) 100%);
+}
+.hero-inner{position:relative;z-index:2;max-width:780px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;
+  background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);
+  font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);
+  margin-bottom:26px;
+}
+.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 2.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hero h1{font-size:clamp(40px,7.2vw,88px);margin-bottom:24px;line-height:1.0;text-transform:uppercase}
+.hero h1 .molten{
+  background:linear-gradient(92deg,var(--cyan) 0%,#7ee7f5 30%,var(--copper-hi) 62%,var(--copper) 100%);
+  background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:moltenflow 7s ease-in-out infinite alternate;
+}
+@keyframes moltenflow{0%{background-position:0% 0}100%{background-position:100% 0}}
+.hero p{font-size:clamp(16.5px,2vw,19.5px);color:#b8c6d4;max-width:560px;margin-bottom:36px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:56px}
+.hero-proof{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line);padding-top:26px}
+.hero-proof .proof{padding-right:34px;margin-right:34px;border-right:1px solid var(--line)}
+.hero-proof .proof:last-child{border:0;margin:0;padding:0}
+.proof b{display:block;font-family:var(--font-head);font-weight:400;font-size:22px;color:var(--text)}
+.proof b em{font-style:normal;color:var(--copper-hi)}
+.proof span{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.scroll-hint{
+  position:absolute;left:50%;bottom:28px;transform:translateX(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--muted);font-size:11px;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;
+}
+.scroll-hint .wheel{width:22px;height:36px;border:1.5px solid var(--line-hi);border-radius:12px;position:relative}
+.scroll-hint .wheel::after{
+  content:"";position:absolute;left:50%;top:7px;width:3px;height:8px;border-radius:3px;
+  background:var(--cyan);transform:translateX(-50%);
+  animation:wheel 1.8s var(--ease-out) infinite;
+}
+@keyframes wheel{0%{top:7px;opacity:1}70%{top:20px;opacity:0}100%{top:7px;opacity:0}}
+@media (max-width:640px){
+  .hero-proof{gap:18px}
+  .hero-proof .proof{padding-right:0;margin-right:0;border:0}
+}
+
+/* ---------- ticker ---------- */
+.ticker{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:var(--bg-2);overflow:hidden;padding:18px 0;position:relative;z-index:2;
+}
+.ticker-track{display:flex;gap:52px;width:max-content;animation:ticker 32s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+@keyframes ticker{to{transform:translateX(-50%)}}
+.ticker-item{display:flex;align-items:center;gap:14px;font-family:var(--font-head);font-weight:400;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.ticker-item svg{width:15px;height:15px;flex:none}
+@media (prefers-reduced-motion:reduce){.ticker-track{animation:none}.hero h1 .molten{animation:none}.scroll-hint .wheel::after{animation:none}.hero-badge .dot{animation:none}}
+
+/* ---------- section dividers (resin drip) ---------- */
+.divider{display:block;width:100%;height:70px;margin-bottom:-1px}
+
+/* ---------- systems (services) ---------- */
+.systems{background:var(--bg)}
+.sys-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
+.sys-card{
+  position:relative;border-radius:var(--radius);padding:34px 30px 30px;
+  background:linear-gradient(170deg,var(--panel) 0%,var(--bg-2) 100%);
+  border:1px solid var(--line);
+  overflow:hidden;isolation:isolate;
+  transition:transform .45s var(--ease-out),border-color .45s,box-shadow .45s;
+}
+.sys-card::before{
+  content:"";position:absolute;inset:-2px;z-index:-1;opacity:0;
+  background:radial-gradient(420px 260px at var(--mx,50%) var(--my,0%), var(--card-glow,rgba(34,211,238,.16)), transparent 65%);
+  transition:opacity .5s;
+}
+.sys-card:hover{transform:translateY(-8px);border-color:var(--line-hi);box-shadow:0 30px 60px -30px rgba(0,0,0,.7)}
+.sys-card:hover::before{opacity:1}
+.sys-num{
+  font-family:var(--font-body);font-size:11.5px;font-weight:600;letter-spacing:.22em;
+  color:var(--muted);margin-bottom:44px;display:flex;justify-content:space-between;align-items:center;
+}
+.sys-icon{width:52px;height:52px;margin-bottom:6px}
+.sys-icon svg{width:100%;height:100%}
+.sys-card h3{font-size:23px;margin-bottom:12px}
+.sys-card p{color:var(--muted);font-size:15px;margin-bottom:20px}
+.sys-tags{display:flex;flex-wrap:wrap;gap:8px}
+.sys-tags span{
+  font-size:11.5px;font-weight:600;letter-spacing:.06em;padding:6px 12px;border-radius:999px;
+  background:rgba(148,178,205,.08);border:1px solid var(--line);color:#aebdcc;
+}
+.sys-card--wide{grid-column:span 3;display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}
+.sys-card--wide .sys-body h3{font-size:clamp(26px,3vw,36px)}
+@media (max-width:960px){
+  .sys-grid{grid-template-columns:1fr 1fr}
+  .sys-card--wide{grid-column:span 2;grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .sys-grid{grid-template-columns:1fr}
+  .sys-card--wide{grid-column:span 1}
+}
+
+/* ---------- interactive lab (flake blender) ---------- */
+.lab{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-top:8px}
+.lab-canvas-shell{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--line-hi);
+  box-shadow:0 40px 80px -40px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06);
+  aspect-ratio:4/3;max-height:520px;
+}
+#lab-canvas{width:100%;height:100%;display:block;cursor:crosshair}
+.lab-badge{
+  position:absolute;top:16px;left:16px;z-index:3;
+  font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cyan);background:rgba(11,15,20,.7);backdrop-filter:blur(8px);
+  padding:7px 13px;border-radius:999px;border:1px solid rgba(34,211,238,.3);
+  pointer-events:none;
+}
+.lab-controls{display:flex;flex-direction:column;gap:22px}
+.lab-field label{display:block;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.seg{display:flex;flex-wrap:wrap;gap:9px}
+.seg button{
+  padding:10px 18px;border-radius:999px;cursor:pointer;
+  background:rgba(148,178,205,.06);border:1px solid var(--line);color:var(--muted);
+  font-family:var(--font-head);font-size:14px;font-weight:500;
+  transition:all .3s var(--ease-out);
+}
+.seg button:hover{border-color:var(--line-hi);color:var(--text)}
+.seg button.active{
+  background:rgba(34,211,238,.12);border-color:var(--cyan);color:var(--cyan);
+  box-shadow:0 0 22px -6px var(--glow-cyan);
+}
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.color-pick-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+input[type="color"]{
+  -webkit-appearance:none;appearance:none;width:56px;height:56px;padding:0;border:none;border-radius:14px;
+  background:none;cursor:pointer;flex:none;
+}
+input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
+input[type="color"]::-webkit-color-swatch{border:1px solid var(--line-hi);border-radius:14px}
+input[type="color"]::-moz-color-swatch{border:1px solid var(--line-hi);border-radius:14px}
+.color-presets{display:flex;gap:8px;flex-wrap:wrap}
+.cpreset,.mpreset{
+  width:34px;height:34px;border-radius:50%;border:2px solid var(--line-hi);cursor:pointer;padding:0;flex:none;
+  background:var(--c);transition:transform .3s var(--ease-out),border-color .3s,box-shadow .3s;
+}
+.cpreset span,.mpreset span{display:block;width:100%;height:100%;border-radius:50%;background:var(--c)}
+.cpreset:hover,.mpreset:hover{transform:scale(1.15)}
+.cpreset.active,.mpreset.active{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.25)}
+.swirl-pickers{display:flex;gap:20px;flex-wrap:wrap}
+.swirl-pick{display:flex;flex-direction:column;align-items:center;gap:8px}
+.swirl-pick input[type="color"]{width:52px;height:52px}
+.swirl-pick span{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.color-hex{font-family:var(--font-head);font-weight:400;font-size:13px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-left:auto}
+.swatch{
+  position:relative;border-radius:12px;height:64px;cursor:pointer;border:1px solid var(--line);
+  overflow:hidden;transition:transform .3s var(--ease-out),border-color .3s,box-shadow .3s;
+}
+.swatch:hover{transform:translateY(-3px)}
+.swatch.active{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan),0 10px 26px -10px var(--glow-cyan)}
+.swatch span{
+  position:absolute;left:8px;bottom:6px;font-size:10px;font-weight:600;letter-spacing:.05em;
+  color:rgba(255,255,255,.85);text-shadow:0 1px 3px rgba(0,0,0,.7);
+}
+.lab-out{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding:20px 22px;border-radius:14px;background:var(--panel);border:1px solid var(--line);
+}
+.lab-out b{font-family:var(--font-head);font-weight:400;font-size:17px}
+.lab-out small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+@media (max-width:900px){.lab-grid{grid-template-columns:1fr}}
+@media (max-width:520px){.swatches{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- process ---------- */
+.process{background:var(--bg)}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:60px;position:relative}
+.proc-grid--3{grid-template-columns:repeat(3,1fr)}
+.proc-grid::before{
+  content:"";position:absolute;top:26px;left:6%;right:6%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line-hi) 20%,var(--line-hi) 80%,transparent);
+}
+.proc{padding:0 22px;text-align:left;position:relative}
+.proc-dot{
+  width:52px;height:52px;border-radius:50%;margin-bottom:26px;position:relative;z-index:2;
+  display:grid;place-items:center;
+  background:var(--panel-2);border:1px solid var(--line-hi);
+  font-family:var(--font-head);font-weight:400;font-size:15px;color:var(--cyan);
+  transition:box-shadow .4s,border-color .4s;
+}
+.proc:hover .proc-dot{border-color:var(--cyan);box-shadow:0 0 28px -6px var(--glow-cyan)}
+.proc h3{font-size:18.5px;margin-bottom:10px}
+.proc p{color:var(--muted);font-size:14.5px}
+@media (max-width:900px){.proc-grid,.proc-grid--3{grid-template-columns:1fr 1fr;gap:44px 0}.proc-grid::before{display:none}}
+@media (max-width:520px){.proc-grid,.proc-grid--3{grid-template-columns:1fr}}
+@media (max-width:520px){.proc-grid{grid-template-columns:1fr}}
+
+/* ---------- about ---------- */
+.about{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
+.about::before{
+  content:"";position:absolute;inset:-30% -20% auto auto;width:70%;height:120%;pointer-events:none;
+  background:radial-gradient(ellipse 50% 50% at 70% 40%, rgba(63,127,217,.08), transparent 65%);
+}
+.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center}
+.about-logo{display:grid;place-items:center;position:relative}
+.about-logo::before{
+  content:"";position:absolute;inset:12%;border-radius:50%;
+  background:radial-gradient(circle,rgba(34,211,238,.10),transparent 65%);
+  filter:blur(10px);
+}
+.about-logo img{width:min(340px,80%);height:auto;position:relative;filter:drop-shadow(0 24px 60px rgba(0,0,0,.6));animation:logofloat 7s ease-in-out infinite}
+@keyframes logofloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(1deg)}}
+@media (prefers-reduced-motion:reduce){.about-logo img{animation:none}}
+.about-copy p{color:#b9c7d6;font-family:var(--font-body);font-size:15.5px;line-height:1.75;margin-bottom:16px}
+.about-copy p:last-child{margin-bottom:0}
+.about-motto{
+  margin-top:28px;padding:18px 22px;border-left:3px solid var(--cyan);
+  font-family:var(--font-head);font-weight:400;font-size:clamp(17px,2vw,21px);letter-spacing:.06em;text-transform:uppercase;
+  background:linear-gradient(90deg,rgba(34,211,238,.07),transparent);border-radius:0 12px 12px 0;
+}
+.about-motto span{color:var(--copper-hi)}
+@media (max-width:900px){.about-grid{grid-template-columns:1fr}.about-logo{order:-1}}
+
+/* ---------- trust ---------- */
+.reviews{background:var(--bg)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
+.rev-card{
+  padding:30px;border-radius:var(--radius);
+  background:linear-gradient(170deg,var(--panel) 0%,var(--bg-2) 100%);
+  border:1px solid var(--line);
+  display:flex;flex-direction:column;gap:18px;
+  transition:transform .45s var(--ease-out),border-color .45s;
+}
+.rev-card:hover{transform:translateY(-6px);border-color:var(--line-hi)}
+.stars{display:flex;gap:4px}
+.stars svg{width:16px;height:16px}
+.rev-card p{color:#c3d0dd;font-size:15px;flex:1}
+.rev-who{display:flex;align-items:center;gap:12px}
+.rev-ava{
+  width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;
+  font-family:var(--font-head);font-weight:400;font-size:14px;color:#04121a;
+}
+.rev-who b{display:block;font-size:14.5px}
+.rev-who span{font-size:12.5px;color:var(--muted)}
+.g-badge{
+  display:inline-flex;align-items:center;gap:10px;margin-top:40px;
+  padding:12px 22px;border-radius:999px;border:1px solid var(--line-hi);background:var(--panel);
+  font-size:14px;color:var(--muted);
+}
+.g-badge b{color:var(--text);font-family:var(--font-head)}
+@media (max-width:960px){.rev-grid{grid-template-columns:1fr}}
+
+/* ---------- quote / form ---------- */
+.quote{background:var(--bg-2);border-top:1px solid var(--line);overflow:hidden}
+.quote::before{
+  content:"";position:absolute;inset:auto -20% -60% -20%;height:120%;pointer-events:none;
+  background:radial-gradient(ellipse 60% 45% at 50% 100%, rgba(63,127,217,.12), transparent 65%);
+}
+.quote-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start}
+.quote-info h2{font-size:clamp(32px,4.4vw,50px);margin-bottom:20px}
+.quote-info>p{color:var(--muted);margin-bottom:36px;max-width:440px}
+.contact-rows{display:flex;flex-direction:column;gap:14px}
+.contact-row{
+  display:flex;align-items:center;gap:16px;padding:17px 20px;border-radius:14px;
+  background:var(--panel);border:1px solid var(--line);text-decoration:none;
+  transition:border-color .3s,transform .3s var(--ease-out);
+}
+.contact-row:hover{border-color:var(--line-hi);transform:translateX(6px)}
+.contact-row .ci{width:42px;height:42px;flex:none;border-radius:12px;display:grid;place-items:center;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.25)}
+.contact-row .ci svg{width:19px;height:19px}
+.contact-row b{display:block;font-size:15px}
+.contact-row span{font-size:12.5px;color:var(--muted)}
+.hours{margin-top:26px;padding:18px 20px;border-radius:14px;border:1px dashed var(--line-hi);font-size:13.5px;color:var(--muted);display:flex;gap:12px;align-items:center}
+.hours .dot{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399;flex:none}
+
+.form-shell{
+  position:relative;border-radius:calc(var(--radius) + 6px);padding:2px;
+  background:linear-gradient(140deg,rgba(34,211,238,.5),rgba(148,178,205,.08) 30%,rgba(63,127,217,.5) 100%);
+}
+.form-inner{
+  border-radius:calc(var(--radius) + 4px);background:var(--bg);padding:clamp(26px,3.4vw,44px);
+}
+.form-inner h3{font-size:22px;margin-bottom:6px}
+.form-inner>p{color:var(--muted);font-size:14px;margin-bottom:30px}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.f-field{display:flex;flex-direction:column;gap:8px}
+.f-field.full{grid-column:span 2}
+.f-field label{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.f-field label em{color:var(--copper);font-style:normal}
+.f-field input,.f-field select,.f-field textarea{
+  appearance:none;width:100%;padding:14px 16px;border-radius:12px;
+  background:var(--panel);border:1px solid var(--line);color:var(--text);
+  font-family:var(--font-body);font-size:15px;
+  transition:border-color .3s,box-shadow .3s;
+}
+.f-field textarea{resize:vertical;min-height:110px}
+.f-field select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238fa3b8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;cursor:pointer;
+}
+.f-field input:focus,.f-field select:focus,.f-field textarea:focus{
+  outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.14);
+}
+.f-field input::placeholder,.f-field textarea::placeholder{color:#5c6f82}
+.f-submit{
+  grid-column:span 2;width:100%;justify-content:center;padding:17px;
+  font-size:16px;margin-top:6px;
+}
+.f-note{grid-column:span 2;text-align:center;font-size:12.5px;color:var(--muted)}
+.form-success{
+  display:none;text-align:center;padding:60px 20px;
+}
+.form-success.show{display:block}
+.form-success .ok{
+  width:74px;height:74px;margin:0 auto 24px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.4);
+}
+.form-success .ok svg{width:34px;height:34px}
+.form-success h3{font-size:26px;margin-bottom:10px}
+.form-success p{color:var(--muted);max-width:380px;margin:0 auto}
+@media (max-width:960px){.quote-grid{grid-template-columns:1fr}}
+@media (max-width:560px){.f-grid{grid-template-columns:1fr}.f-field.full,.f-submit,.f-note{grid-column:span 1}}
+
+/* ---------- service area ---------- */
+.area{background:var(--bg)}
+.area-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{
+  padding:10px 18px;border-radius:999px;font-size:13.5px;font-weight:500;
+  background:var(--panel);border:1px solid var(--line);color:#b9c7d6;
+  transition:border-color .3s,color .3s,transform .3s var(--ease-out);
+}
+.chip:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px)}
+.map-shell{
+  position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line-hi);
+  background:radial-gradient(ellipse at 50% 40%, #101a26 0%, var(--bg-2) 70%);
+  aspect-ratio:4/3;
+  box-shadow:0 40px 80px -40px rgba(0,0,0,.8);
+}
+.map-shell svg{width:100%;height:100%;display:block}
+.map-pin{animation:pinpulse 2.6s ease-out infinite}
+@keyframes pinpulse{0%{opacity:.9}100%{opacity:0}}
+@media (max-width:900px){.area-grid{grid-template-columns:1fr}}
+
+/* ---------- faq ---------- */
+.faq{background:var(--bg-2);border-top:1px solid var(--line)}
+.faq-list{margin-top:50px;display:flex;flex-direction:column;gap:14px;max-width:820px}
+.faq-item{border:1px solid var(--line);border-radius:16px;background:var(--panel);overflow:hidden;transition:border-color .3s}
+.faq-item.open{border-color:rgba(34,211,238,.4)}
+.faq-q{
+  width:100%;display:flex;justify-content:space-between;align-items:center;gap:18px;
+  padding:22px 26px;background:none;border:0;cursor:pointer;text-align:left;
+  font-family:var(--font-head);font-size:16.5px;font-weight:400;color:var(--text);
+}
+.faq-q .plus{
+  width:30px;height:30px;flex:none;border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--line-hi);color:var(--cyan);font-size:18px;font-weight:400;
+  transition:transform .4s var(--ease-out),background .3s;
+}
+.faq-item.open .plus{transform:rotate(45deg);background:rgba(34,211,238,.12)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease-out)}
+.faq-a p{padding:0 26px 24px;color:var(--muted);font-size:15px}
+
+/* ---------- final CTA ---------- */
+.final-cta{
+  background:
+    radial-gradient(ellipse 70% 90% at 50% 120%, rgba(63,127,217,.16), transparent 60%),
+    radial-gradient(ellipse 50% 60% at 50% -20%, rgba(34,211,238,.10), transparent 60%),
+    var(--bg);
+  text-align:center;
+}
+.final-cta h2{font-size:clamp(32px,5.2vw,62px);margin-bottom:20px;text-transform:uppercase}
+.final-cta p{color:var(--muted);max-width:520px;margin:0 auto 40px;font-size:17px}
+.final-cta .hero-actions{justify-content:center;margin-bottom:0}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.foot-brand p{color:var(--muted);font-size:14px;margin-top:16px;max-width:320px;font-family:var(--font-body)}
+.foot-col h4{font-family:var(--font-body);font-weight:600;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.foot-col a{text-decoration:none;color:#b9c7d6;font-size:14.5px;transition:color .25s}
+.foot-col a:hover{color:var(--cyan)}
+.foot-bottom{
+  border-top:1px solid var(--line);padding-top:28px;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  font-size:13px;color:var(--muted);
+}
+@media (max-width:760px){.foot-grid{grid-template-columns:1fr}}
+
+/* ---------- floating mobile call button ---------- */
+.float-call{
+  position:fixed;right:18px;bottom:18px;z-index:60;
+  display:none;align-items:center;gap:10px;
+  padding:14px 22px;border-radius:999px;text-decoration:none;
+  background:linear-gradient(135deg,var(--copper),var(--copper-hi));color:#0a1526;
+  font-family:var(--font-head);font-weight:400;font-size:15px;
+  box-shadow:0 12px 34px -8px var(--glow-copper);
+}
+.float-call svg{width:18px;height:18px}
+@media (max-width:900px){.float-call{display:inline-flex}}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,140%);z-index:80;
+  padding:14px 24px;border-radius:999px;font-size:14px;font-weight:500;
+  background:var(--panel-2);border:1px solid var(--line-hi);color:var(--text);
+  transition:transform .5s var(--ease-out);pointer-events:none;max-width:90vw;text-align:center;
+}
+.toast.show{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+<!-- ======================= NAV ======================= -->
+<header id="siteHeader">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Glenn Smith Epoxy home">
+      <img src="assets/logo.png" alt="Glenn Smith Epoxy logo" width="38" height="38" style="width:38px;height:38px;object-fit:contain">
+      <span>Glenn Smith Epoxy</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#systems">Systems</a></li>
+        <li><a href="#lab">Finish Lab</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="#quote">Get a Free Quote</a>
+      <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<section class="hero" id="top">
+  <canvas id="resin-canvas" aria-hidden="true"></canvas>
+  <div class="wrap hero-inner">
+    <span class="hero-badge"><span class="dot"></span>East Tennessee&rsquo;s Epoxy Specialists</span>
+    <h1>Floors poured<br>like <span class="molten">liquid glass.</span><br>Built like armor.</h1>
+    <p>Premium epoxy flooring for homes, businesses, and the spaces that work as hard as you do — prepped to the bone, finished to a mirror.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#quote">Get My Free Quote
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#lab">Try the Finish Lab</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof"><b>Free</b><span>No-pressure quotes</span></div>
+      <div class="proof"><b>Prep-first</b><span>Every slab, every time</span></div>
+      <div class="proof"><b>Local</b><span>East Tennessee</span></div>
+    </div>
+  </div>
+  <a class="scroll-hint" href="#systems" aria-label="Scroll to systems"><span class="wheel"></span>Scroll</a>
+</section>
+
+<!-- ======================= TICKER ======================= -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack">
+    <span class="ticker-item"><svg viewBox="0 0 24 24" fill="#22d3ee"><path d="M12 2C12 2 5 11 5 16a7 7 0 0 0 14 0c0-5-7-14-7-14Z"/></svg>Garage Floors</span>
+    <span class="ticker-item"><svg viewBox="0 0 24 24" fill="#5b97e8"><path d="M12 2C12 2 5 11 5 16a7 7 0 0 0 14 0c0-5-7-14-7-14Z"/></svg>Metallic Showrooms</span>
+    <span class="ticker-item"><svg viewBox="0 0 24 24" fill="#22d3ee"><path d="M12 2C12 2 5 11 5 16a7 7 0 0 0 14 0c0-5-7-14-7-14Z"/></svg>Basements &amp; Workshops</span>
+    <span class="ticker-item"><svg viewBox="0 0 24 24" fill="#5b97e8"><path d="M12 2C12 2 5 11 5 16a7 7 0 0 0 14 0c0-5-7-14-7-14Z"/></svg>Commercial Kitchens</span>
+    <span class="ticker-item"><svg viewBox="0 0 24 24" fill="#22d3ee"><path d="M12 2C12 2 5 11 5 16a7 7 0 0 0 14 0c0-5-7-14-7-14Z"/></svg>Warehouses</span>
+    <span class="ticker-item"><svg viewBox="0 0 24 24" fill="#5b97e8"><path d="M12 2C12 2 5 11 5 16a7 7 0 0 0 14 0c0-5-7-14-7-14Z"/></svg>Polished Concrete</span>
+    <span class="ticker-item"><svg viewBox="0 0 24 24" fill="#22d3ee"><path d="M12 2C12 2 5 11 5 16a7 7 0 0 0 14 0c0-5-7-14-7-14Z"/></svg>Patios &amp; Pool Decks</span>
+    <span class="ticker-item"><svg viewBox="0 0 24 24" fill="#5b97e8"><path d="M12 2C12 2 5 11 5 16a7 7 0 0 0 14 0c0-5-7-14-7-14Z"/></svg>Retail Spaces</span>
+  </div>
+</div>
+
+<!-- ======================= SYSTEMS ======================= -->
+<section class="systems" id="systems">
+  <div class="wrap">
+    <span class="eyebrow reveal">Flooring Systems</span>
+    <h2 class="sec-title reveal">The right system.<br>The right finish.</h2>
+    <p class="sec-sub reveal d1">Every space works differently. Every system we install is chosen — and prepped — for how your floor actually gets used.</p>
+
+    <div class="sys-grid">
+      <article class="sys-card reveal" style="--card-glow:rgba(34,211,238,.16)">
+        <div class="sys-num"><span>01</span><span>MOST POPULAR</span></div>
+        <div class="sys-icon">
+          <svg viewBox="0 0 52 52" fill="none" aria-hidden="true">
+            <path d="M7 33h38v7a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-7Z" fill="#182231" stroke="#3f7fd9" stroke-width="2"/>
+            <path d="M7 29h38v4H7z" fill="#22d3ee" opacity=".22"/>
+            <path d="M7 29h38" stroke="#22d3ee" stroke-width="2"/>
+            <path d="M13 11l4.5 3-2 4.5-5.5-1-1.5-4.5z" fill="#5b97e8"/>
+            <path d="M26 7l4.5 2.5-1 4.5-5.5 1-2.5-4.5z" fill="#e9eff5"/>
+            <path d="M38 12l4.5 3-2 4.5-5.5-1-1.5-4.5z" fill="#22d3ee"/>
+            <path d="M19.5 20.5l3.5 2-1 3.5-4.5 1-2.5-3.5z" fill="#8fa3b8"/>
+            <path d="M32.5 21.5l3.5 2-1 3.5-4.5 1-2.5-3.5z" fill="#e9eff5" opacity=".75"/>
+          </svg>
+        </div>
+        <h3>Chip / Flake Epoxy</h3>
+        <p>A clean, hard-wearing broadcast system for garages, workshops, and utility spaces. Slip-resistant texture, hot-tire resistant, and it hides dust between cleanings.</p>
+        <div class="sys-tags"><span>Garages</span><span>Workshops</span><span>Basements</span></div>
+      </article>
+
+      <article class="sys-card reveal d1" style="--card-glow:rgba(63,127,217,.16)">
+        <div class="sys-num"><span>02</span><span>ONE OF A KIND</span></div>
+        <div class="sys-icon">
+          <svg viewBox="0 0 52 52" fill="none" aria-hidden="true">
+            <path d="M8 37c8-2 4-10 12-12s14 5 18-2 4-10-2-13" stroke="#22d3ee" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M10 44c10-3 6-12 16-14s14 4 20-5" stroke="#5b97e8" stroke-width="2.2" stroke-linecap="round" opacity=".75"/>
+            <path d="M6 29c6-4 10 3 16-2 4-3.4 2-7-2-8" stroke="#e9eff5" stroke-width="1.8" stroke-linecap="round" opacity=".6"/>
+            <circle cx="40" cy="10" r="2.2" fill="#e9eff5"/>
+            <circle cx="13" cy="16" r="1.6" fill="#22d3ee" opacity=".85"/>
+            <circle cx="45" cy="20" r="1.3" fill="#5b97e8" opacity=".9"/>
+          </svg>
+        </div>
+        <h3>Metallic Epoxy</h3>
+        <p>Molten, dimensional finishes that turn a floor into the focal point of the room. Every pour moves differently — no two metallic floors ever look the same.</p>
+        <div class="sys-tags"><span>Showrooms</span><span>Man caves</span><span>Retail</span></div>
+      </article>
+
+      <article class="sys-card reveal d2" style="--card-glow:rgba(148,178,205,.16)">
+        <div class="sys-num"><span>03</span><span>LOW MAINTENANCE</span></div>
+        <div class="sys-icon">
+          <svg viewBox="0 0 52 52" fill="none" aria-hidden="true">
+            <circle cx="26" cy="29" r="14" stroke="#8fa3b8" stroke-width="2.6"/>
+            <path d="M17.5 25a10.5 10.5 0 0 1 9-9" stroke="#22d3ee" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M34.5 33a10.5 10.5 0 0 1-6.5 6.5" stroke="#e9eff5" stroke-width="2.2" stroke-linecap="round" opacity=".7"/>
+            <circle cx="26" cy="29" r="3.2" fill="#3f7fd9"/>
+            <path d="M26 5v5.5M43.5 9.5 40 13M8.5 9.5 12 13" stroke="#5b97e8" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Polish &amp; Seal</h3>
+        <p>Mechanically refined concrete with a low-maintenance sheen. No coating to peel — just dense, hardened, easy-care concrete that keeps its edge.</p>
+        <div class="sys-tags"><span>Homes</span><span>Offices</span><span>Patios</span></div>
+      </article>
+
+      <article class="sys-card sys-card--wide reveal" style="--card-glow:rgba(34,211,238,.13)">
+        <div class="sys-body">
+          <div class="sys-num"><span>04</span><span>HEAVY DUTY</span></div>
+          <h3>Commercial &amp; Industrial High-Build</h3>
+          <p style="max-width:520px">High-build protection for high-demand environments — shops, kitchens, warehouses, and service bays. Chemical-resistant, impact-tolerant systems installed around your schedule to keep downtime near zero.</p>
+          <div class="sys-tags"><span>Warehouses</span><span>Commercial kitchens</span><span>Service bays</span><span>Slip-resistant options</span></div>
+        </div>
+        <div style="display:flex;justify-content:flex-end">
+          <a class="btn btn-ghost" href="#quote">Spec my facility
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FINISH LAB ======================= -->
+<section class="lab" id="lab">
+  <div class="wrap">
+    <span class="eyebrow reveal">Interactive</span>
+    <h2 class="sec-title reveal">The Finish Lab</h2>
+    <p class="sec-sub reveal d1" style="margin-bottom:52px">Design your floor. Pick a system, dial in the colors with the pickers, and see it on a real room. Then tell us to pour it.</p>
+
+    <div class="lab-grid">
+      <div class="lab-canvas-shell reveal">
+        <canvas id="lab-canvas" aria-label="Interactive epoxy floor preview"></canvas>
+        <span class="lab-badge">Live preview</span>
+      </div>
+
+      <div class="lab-controls reveal d1">
+        <div class="lab-field">
+          <label id="lbl-system">System</label>
+          <div class="seg" role="group" aria-labelledby="lbl-system" id="systemSeg">
+            <button type="button" class="active" data-system="flake">Chip / Flake</button>
+            <button type="button" data-system="metallic">Metallic</button>
+            <button type="button" data-system="swirl">Swirl</button>
+            <button type="button" data-system="solid">Solid Color</button>
+          </div>
+        </div>
+
+        <div class="lab-field">
+          <label>Base coat color</label>
+          <div class="color-pick-row">
+            <input type="color" id="baseColor" value="#3a3f46" aria-label="Pick custom base color">
+            <div class="color-presets" id="basePresets">
+              <button type="button" class="cpreset active" data-color="#3a3f46" style="--c:#3a3f46" aria-label="Graphite"><span></span></button>
+              <button type="button" class="cpreset" data-color="#26292e" style="--c:#26292e" aria-label="Charcoal"><span></span></button>
+              <button type="button" class="cpreset" data-color="#8a7a5f" style="--c:#8a7a5f" aria-label="Sandstone"><span></span></button>
+              <button type="button" class="cpreset" data-color="#b8b2a2" style="--c:#b8b2a2" aria-label="Bone"><span></span></button>
+              <button type="button" class="cpreset" data-color="#1e3a5c" style="--c:#1e3a5c" aria-label="Deep Blue"><span></span></button>
+            </div>
+            <span class="color-hex" id="baseHex">#3a3f46</span>
+          </div>
+        </div>
+
+        <div class="lab-field" id="flakeRow">
+          <label id="lbl-blend">Flake blend</label>
+          <div class="swatches" role="group" aria-labelledby="lbl-blend" id="blendSwatches">
+            <button type="button" class="swatch active" data-blend="domino" style="background:linear-gradient(135deg,#2b2f36 40%,#e8e4da 40%)" aria-label="Domino blend"><span>Domino</span></button>
+            <button type="button" class="swatch" data-blend="smokey" style="background:linear-gradient(135deg,#5b6670 33%,#9aa7b3 33%,#9aa7b3 66%,#2e353d 66%)" aria-label="Smokey Ridge blend"><span>Smokey Ridge</span></button>
+            <button type="button" class="swatch" data-blend="riverbed" style="background:linear-gradient(135deg,#1f6f7a 33%,#8fa79b 33%,#8fa79b 66%,#d8d3c5 66%)" aria-label="Riverbed blend"><span>Riverbed</span></button>
+            <button type="button" class="swatch" data-blend="copperhead" style="background:linear-gradient(135deg,#3a3f47 35%,#c97e3d 35%,#c97e3d 65%,#e8e4da 65%)" aria-label="Copperhead blend"><span>Copperhead</span></button>
+          </div>
+        </div>
+
+        <div class="lab-field" id="densityRow">
+          <label id="lbl-density">Broadcast density</label>
+          <div class="seg" role="group" aria-labelledby="lbl-density" id="densitySeg">
+            <button type="button" data-density="0.2">Light</button>
+            <button type="button" data-density="0.5">Medium</button>
+            <button type="button" class="active" data-density="1">Full broadcast</button>
+          </div>
+        </div>
+
+        <div class="lab-field" id="metallicRow" style="display:none">
+          <label id="lbl-metallic">Metallic pigment</label>
+          <div class="color-pick-row">
+            <input type="color" id="metalColor" value="#1e56b8" aria-label="Pick metallic pigment color">
+            <div class="color-presets" id="metalPresets">
+              <button type="button" class="mpreset active" data-color="#1e56b8" style="--c:#1e56b8" aria-label="Sapphire"><span></span></button>
+              <button type="button" class="mpreset" data-color="#c47f2a" style="--c:#c47f2a" aria-label="Copper"><span></span></button>
+              <button type="button" class="mpreset" data-color="#8a8f96" style="--c:#8a8f96" aria-label="Pewter"><span></span></button>
+              <button type="button" class="mpreset" data-color="#0f6b5e" style="--c:#0f6b5e" aria-label="Emerald"><span></span></button>
+            </div>
+            <span class="color-hex" id="metalHex">#1e56b8</span>
+          </div>
+        </div>
+
+        <div class="lab-field" id="swirlRow" style="display:none">
+          <label id="lbl-swirl">Swirl colors</label>
+          <div class="swirl-pickers">
+            <div class="swirl-pick">
+              <input type="color" id="swirlColor1" value="#173a5e" aria-label="First swirl color">
+              <span>Primary</span>
+            </div>
+            <div class="swirl-pick">
+              <input type="color" id="swirlColor2" value="#e8edf3" aria-label="Second swirl color">
+              <span>Accent</span>
+            </div>
+            <div class="swirl-pick">
+              <input type="color" id="swirlColor3" value="#7ba3d4" aria-label="Third swirl color">
+              <span>Highlight</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lab-out">
+          <div><b id="blendName">Domino on Graphite</b><small id="blendNote">Full broadcast · gloss polyaspartic topcoat</small></div>
+          <a class="btn btn-primary btn-sm" href="#quote" id="labQuoteBtn">Request this finish</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PROCESS ======================= -->
+<section class="process" id="process">
+  <div class="wrap">
+    <span class="eyebrow reveal">How it works</span>
+    <h2 class="sec-title reveal">Built on prep.<br>Finished with pride.</h2>
+    <p class="sec-sub reveal d1">We keep every job organized, transparent, and centered on a floor that performs for the long haul.</p>
+
+    <div class="proc-grid proc-grid--3">
+      <div class="proc reveal">
+        <div class="proc-dot">01</div>
+        <h3>Consultation &amp; Site Review</h3>
+        <p>We walk your space, look at the slab, and talk through how you actually use the floor. Free, no pressure.</p>
+      </div>
+      <div class="proc reveal d1">
+        <div class="proc-dot">02</div>
+        <h3>Surface Prep &amp; System Selection</h3>
+        <p>We prep the concrete properly and match the right coating system to your space, budget, and style.</p>
+      </div>
+      <div class="proc reveal d2">
+        <div class="proc-dot">03</div>
+        <h3>Installation &amp; Final Walkthrough</h3>
+        <p>Clean, careful application — then we walk the finished floor with you before we call it done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= TRUST / WHY US ======================= -->
+<section class="reviews" id="trust">
+  <div class="wrap">
+    <span class="eyebrow reveal">The Glenn Smith Standard</span>
+    <h2 class="sec-title reveal">Prepared<br>with purpose.</h2>
+    <p class="sec-sub reveal d1">No shortcuts, no inflated claims. Just disciplined prep, quality materials, and straight answers — that&rsquo;s the standard every floor gets.</p>
+
+    <div class="rev-grid">
+      <article class="rev-card reveal">
+        <div class="sys-icon" style="margin:0">
+          <svg viewBox="0 0 52 52" fill="none" aria-hidden="true">
+            <path d="M26 5l16 6v12c0 10-6.8 17.4-16 22-9.2-4.6-16-12-16-22V11z" stroke="#22d3ee" stroke-width="2.6" stroke-linejoin="round"/>
+            <path d="m18.5 26.5 5.5 5.5 10-11" stroke="#6aa3f0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 style="font-size:21px">Quality Materials</h3>
+        <p>Systems selected for dependable adhesion, chemical resistance, and lasting color — matched to how your space is actually used.</p>
+      </article>
+
+      <article class="rev-card reveal d1">
+        <div class="sys-icon" style="margin:0">
+          <svg viewBox="0 0 52 52" fill="none" aria-hidden="true">
+            <circle cx="26" cy="26" r="17" stroke="#22d3ee" stroke-width="2.6" fill="none"/>
+            <path d="M26 14v12l8 6" stroke="#6aa3f0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 style="font-size:21px">Expert Craftsmanship</h3>
+        <p>Every detail is handled with disciplined prep, proper application, and careful inspection — the work most people never see is the work that makes a floor last.</p>
+      </article>
+
+      <article class="rev-card reveal d2">
+        <div class="sys-icon" style="margin:0">
+          <svg viewBox="0 0 52 52" fill="none" aria-hidden="true">
+            <path d="M10 20c0-6 7-11 16-11s16 5 16 11c0 7-7 10-11 11l-2 5-3-5c-4-1-16-4-16-11z" stroke="#22d3ee" stroke-width="2.6" stroke-linejoin="round"/>
+            <circle cx="20" cy="20" r="2" fill="#6aa3f0"/><circle cx="26" cy="20" r="2" fill="#6aa3f0"/><circle cx="32" cy="20" r="2" fill="#6aa3f0"/>
+          </svg>
+        </div>
+        <h3 style="font-size:21px">Personal Service</h3>
+        <p>Clear communication and custom recommendations from the first consultation through the final walkthrough. You&rsquo;ll always know what&rsquo;s happening and why.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ABOUT ======================= -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-logo reveal">
+      <img src="assets/logo.png" alt="Glenn Smith Epoxy — GS logo">
+    </div>
+    <div class="about-copy">
+      <span class="eyebrow reveal">Who we are</span>
+      <h2 class="sec-title reveal">Craftsmanship<br>you can stand on.</h2>
+      <div class="reveal d1">
+        <p>At Glenn Smith Epoxy, we specialize in providing high-quality epoxy flooring solutions for residential, commercial, and industrial spaces in East Tennessee and the surrounding areas. With years of experience in the industry, our team is dedicated to transforming floors into durable, aesthetically pleasing surfaces built to last. We use only the highest quality materials and the latest techniques to ensure every project meets our standards of excellence.</p>
+        <p>Whether you&rsquo;re upgrading a home garage, enhancing a commercial property, or need a resilient floor for an industrial facility, we have the expertise to deliver outstanding results. From the first consultation to the final inspection, we listen closely, recommend the right system, and deliver a customized solution that fits your budget and style.</p>
+        <p>Our commitment to customer satisfaction sets us apart. We take pride in our attention to detail, professionalism, and personalized service. We believe that a great floor is the foundation of a great space.</p>
+      </div>
+      <div class="about-motto reveal d2">Built on prep. <span>Finished with pride.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= QUOTE / FORM ======================= -->
+<section class="quote" id="quote">
+  <div class="wrap quote-grid">
+    <div class="quote-info">
+      <span class="eyebrow reveal">Free quote</span>
+      <h2 class="reveal">Let&rsquo;s talk<br>floors.</h2>
+      <p class="reveal d1">Tell us about your space and our East Tennessee team will follow up — usually within one business day — to talk system, timeline, and price. No pressure, no spam.</p>
+
+      <div class="contact-rows reveal d2">
+        <a class="contact-row" href="tel:+18658013736">
+          <span class="ci"><svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z" stroke="#22d3ee" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+          <div><b>(865) 801-3736</b><span>Call or text for a free quote</span></div>
+        </a>
+        <a class="contact-row" href="mailto:contact@glennsmithepoxy.com">
+          <span class="ci"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="#22d3ee" stroke-width="1.7"/><path d="m4 7 8 6 8-6" stroke="#22d3ee" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><b>contact@glennsmithepoxy.com</b><span>Email the team directly</span></div>
+        </a>
+        <a class="contact-row" href="#area">
+          <span class="ci"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5.4-7-11a7 7 0 0 1 14 0c0 5.6-7 11-7 11Z" stroke="#22d3ee" stroke-width="1.7"/><circle cx="12" cy="10" r="2.6" stroke="#22d3ee" stroke-width="1.7"/></svg></span>
+          <div><b>East Tennessee</b><span>Knoxville and the surrounding region</span></div>
+        </a>
+      </div>
+
+      <div class="hours reveal d3"><span class="dot"></span>Mon–Sat, 8:00 AM – 6:00 PM · Free consultations · Fast, no-pressure response</div>
+    </div>
+
+    <div class="form-shell reveal d1">
+      <div class="form-inner">
+        <!-- ═══════════════════════════════════════════════════════════
+             FORMSPREE WIRING — 2 steps:
+             1. Create a form at https://formspree.io and copy your ID
+                (looks like  xabcdwyz ).
+             2. Replace  YOUR_FORMSPREE_ID  below with that ID.
+             That's it — submissions will email you automatically.
+             Optional: search this file for "data-lab" to see how the
+             Finish Lab pre-fills the finish fields.
+             ═══════════════════════════════════════════════════════════ -->
+        <form id="quoteForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+          <h3>Start your project</h3>
+          <p>Tell us about your floor. Fields marked <em style="color:var(--copper);font-style:normal">*</em> are required.</p>
+          <div class="f-grid">
+            <div class="f-field">
+              <label for="f-name">Full name <em>*</em></label>
+              <input id="f-name" name="name" type="text" autocomplete="name" placeholder="John Doe" required>
+            </div>
+            <div class="f-field">
+              <label for="f-phone">Phone <em>*</em></label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="1234567890" required>
+            </div>
+            <div class="f-field full">
+              <label for="f-email">Email <em>*</em></label>
+              <input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            </div>
+            <div class="f-field">
+              <label for="f-type">Project type <em>*</em></label>
+              <select id="f-type" name="project_type" required>
+                <option value="" disabled selected>Choose one…</option>
+                <option>Residential garage</option>
+                <option>Residential other (basement, patio, shop)</option>
+                <option>Commercial space</option>
+                <option>Industrial facility</option>
+                <option>Metallic / decorative interior</option>
+                <option>Concrete polishing or sealing</option>
+                <option>Not sure — help me choose</option>
+              </select>
+            </div>
+            <div class="f-field">
+              <label for="f-size">Approx. square footage</label>
+              <select id="f-size" name="square_footage">
+                <option value="" disabled selected>Choose one…</option>
+                <option>Under 400 sq ft</option>
+                <option>400 – 800 sq ft</option>
+                <option>800 – 1,500 sq ft</option>
+                <option>1,500 – 3,000 sq ft</option>
+                <option>Over 3,000 sq ft</option>
+              </select>
+            </div>
+            <div class="f-field">
+              <label for="f-finish">Finish style <span style="text-transform:none;letter-spacing:0;color:#5c6f82">(from Finish Lab)</span></label>
+              <select id="f-finish" name="finish_style" data-lab="finish">
+                <option value="" disabled selected>Choose one…</option>
+                <option>Chip / flake broadcast</option>
+                <option>Metallic epoxy</option>
+                <option>Solid color</option>
+                <option>Polished / sealed concrete</option>
+                <option>Custom blend from the Finish Lab</option>
+              </select>
+            </div>
+            <div class="f-field">
+              <label for="f-timeline">Timeline</label>
+              <select id="f-timeline" name="timeline">
+                <option value="" disabled selected>Choose one…</option>
+                <option>ASAP</option>
+                <option>Within 1 – 3 months</option>
+                <option>3+ months out</option>
+                <option>Just researching</option>
+              </select>
+            </div>
+            <div class="f-field full">
+              <label for="f-msg">Tell us about your space</label>
+              <textarea id="f-msg" name="message" data-lab="message" placeholder="2-car garage in Farragut. Slab is 8 years old, a few small cracks, some oil staining. Interested in a flake floor in darker colors…"></textarea>
+            </div>
+            <!-- Formspree helpers -->
+            <input type="hidden" name="_subject" value="New quote request — glennsmithepoxy.com">
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+            <button class="btn btn-primary f-submit" type="submit" id="submitBtn">Request My Free Quote
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <p class="f-note">Free consultations · East Tennessee service area · We never share your info</p>
+          </div>
+        </form>
+
+        <div class="form-success" id="formSuccess" role="status">
+          <div class="ok"><svg viewBox="0 0 24 24" fill="none"><path d="m4.5 12.5 5 5 10-11" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Request received.</h3>
+          <p>Thanks for reaching out — our East Tennessee team will follow up within one business day. Want to talk sooner? Call <a href="tel:+18658013736" style="color:var(--cyan)">(865) 801-3736</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= SERVICE AREA ======================= -->
+<section class="area" id="area">
+  <div class="wrap area-grid">
+    <div>
+      <span class="eyebrow reveal">Service area</span>
+      <h2 class="sec-title reveal">Proudly serving<br>East Tennessee.</h2>
+      <p class="sec-sub reveal d1">Based in the Knoxville area, pouring floors across the region. Outside the map? Ask — we travel for the right projects.</p>
+      <div class="chips reveal d2">
+        <span class="chip">Knoxville</span><span class="chip">Maryville</span><span class="chip">Farragut</span><span class="chip">Oak Ridge</span><span class="chip">Sevierville</span><span class="chip">Pigeon Forge</span><span class="chip">Gatlinburg</span><span class="chip">Lenoir City</span><span class="chip">Alcoa</span><span class="chip">Powell</span><span class="chip">Clinton</span><span class="chip">Morristown</span>
+      </div>
+    </div>
+    <div class="map-shell reveal d1" aria-hidden="true">
+      <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="mapGlow" cx=".5" cy=".45" r=".55"><stop offset="0" stop-color="#22d3ee" stop-opacity=".12"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect width="800" height="600" fill="transparent"/>
+        <g stroke="#22303f" stroke-width="1.2" fill="none" opacity=".8">
+          <path d="M0 120 H800 M0 260 H800 M0 400 H800 M0 520 H800"/>
+          <path d="M140 0 V600 M320 0 V600 M500 0 V600 M660 0 V600"/>
+        </g>
+        <path d="M-20 470 C 180 430 260 350 430 320 S 700 260 830 200" stroke="#2c4256" stroke-width="16" fill="none" opacity=".5" stroke-linecap="round"/>
+        <path d="M60 -20 C 140 160 320 240 380 420 S 460 560 520 630" stroke="#2c4256" stroke-width="12" fill="none" opacity=".45" stroke-linecap="round"/>
+        <rect width="800" height="600" fill="url(#mapGlow)"/>
+        <g font-family="Inter,sans-serif" font-size="15" fill="#8fa3b8">
+          <circle cx="400" cy="270" r="6" fill="#5b97e8"/>
+          <circle class="map-pin" cx="400" cy="270" r="6" fill="none" stroke="#5b97e8" stroke-width="2"/>
+          <text x="418" y="266" fill="#e9eff5" font-weight="600">Knoxville</text>
+          <circle cx="330" cy="330" r="4" fill="#22d3ee"/><text x="342" y="344">Maryville</text>
+          <circle cx="352" cy="316" r="4" fill="#22d3ee"/><text x="364" y="312">Alcoa</text>
+          <circle cx="330" cy="250" r="4" fill="#22d3ee"/><text x="242" y="246">Farragut</text>
+          <circle cx="295" cy="180" r="4" fill="#22d3ee"/><text x="212" y="176">Oak Ridge</text>
+          <circle cx="520" cy="345" r="4" fill="#22d3ee"/><text x="532" y="359">Sevierville</text>
+          <circle cx="545" cy="372" r="4" fill="#22d3ee"/><text x="557" y="386">Pigeon Forge</text>
+          <circle cx="560" cy="395" r="4" fill="#22d3ee"/><text x="572" y="409">Gatlinburg</text>
+          <circle cx="255" cy="290" r="4" fill="#22d3ee"/><text x="152" y="300">Lenoir City</text>
+          <circle cx="380" cy="195" r="4" fill="#22d3ee"/><text x="392" y="191">Powell</text>
+          <circle cx="310" cy="130" r="4" fill="#22d3ee"/><text x="322" y="126">Clinton</text>
+          <circle cx="445" cy="130" r="4" fill="#22d3ee"/><text x="457" y="126">Morristown</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ ======================= -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <span class="eyebrow reveal">Good questions</span>
+    <h2 class="sec-title reveal">Before you ask.</h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">How much does an epoxy floor cost?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Every slab is different, but most residential garage floors land in a predictable range based on size, slab condition, and system. That&rsquo;s why we do free on-site quotes — you get an exact number, not a guess, and there&rsquo;s never pressure to book.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">How long does installation take?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Most garages are prepped and coated in a single day, with a return visit for the topcoat when the system calls for it. You can typically walk on the floor in 24 hours and park on it in 3–5 days, depending on the topcoat chemistry and weather.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">Will it peel like the DIY kits?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Peeling is a prep failure, not an epoxy failure. Big-box kits rely on acid etching, which leaves the slab too smooth to bond. We mechanically prep every floor and inspect the slab first — if there&rsquo;s a moisture concern, we&rsquo;ll tell you straight before any coating goes down.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">Is it slippery when wet?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Flake systems have a natural orange-peel texture that grips well, and we can add anti-slip aggregate to any topcoat — standard practice for commercial kitchens, pool decks, and entryways. Smooth metallic floors we&rsquo;ll always spec with a traction additive where water is likely.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">How do I clean and maintain it?<span class="plus">+</span></button>
+        <div class="faq-a"><p>A dust mop and an occasional damp mop with a pH-neutral cleaner is the whole routine. No waxing, no resealing for years. Oil, road salt, and household chemicals sit on top of the coating instead of soaking in — they wipe right up.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">Can you coat my old, cracked, stained concrete?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Almost always, yes. Cracks and spalls get repaired as part of prep, and stains get ground away. If your slab has a serious moisture issue, we&rsquo;ll tell you straight — with options, not a sales pitch.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FINAL CTA ======================= -->
+<section class="final-cta">
+  <div class="wrap">
+    <h2 class="reveal">Your floor is ready<br>when you are.</h2>
+    <p class="reveal d1">Free quotes. One-business-day responses. A floor that outlasts everything you&rsquo;ll park on it.</p>
+    <div class="hero-actions reveal d2">
+      <a class="btn btn-primary" href="#quote">Get My Free Quote</a>
+      <a class="btn btn-ghost" href="tel:+18658013736">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        Call (865) 801-3736
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#top" aria-label="Glenn Smith Epoxy home">
+          <img src="assets/logo.png" alt="Glenn Smith Epoxy logo" width="46" height="46" style="width:46px;height:46px;object-fit:contain">
+          <span>Glenn Smith Epoxy<small>Built on prep. Finished with pride.</small></span>
+        </a>
+        <p>Premium epoxy flooring systems for homes, businesses, and hardworking spaces across East Tennessee.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#systems">Flooring Systems</a></li>
+          <li><a href="#lab">Finish Lab</a></li>
+          <li><a href="#process">Our Process</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Get in touch</h4>
+        <ul>
+          <li><a href="tel:+18658013736">(865) 801-3736</a></li>
+          <li><a href="mailto:contact@glennsmithepoxy.com">contact@glennsmithepoxy.com</a></li>
+          <li><a href="#quote">Request a free quote</a></li>
+          <li><a href="#area">Service area</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> Glenn Smith Epoxy. All rights reserved.</span>
+      <span>Proudly serving East Tennessee</span>
+    </div>
+  </div>
+</footer>
+
+<a class="float-call" href="tel:+18658013736" aria-label="Call Glenn Smith Epoxy now">
+  <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+  Call Now
+</a>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   GLENN SMITH EPOXY — interactions
+   ============================================================ */
+(function(){
+"use strict";
+const prefersReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- year ---------- */
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* ---------- header + burger ---------- */
+const header = document.getElementById("siteHeader");
+const onScroll = () => header.classList.toggle("scrolled", scrollY > 24);
+addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+const burger = document.getElementById("burger");
+const navLinks = document.getElementById("navLinks");
+burger.addEventListener("click", () => {
+  const open = navLinks.classList.toggle("open");
+  burger.classList.toggle("open", open);
+  burger.setAttribute("aria-expanded", open);
+});
+navLinks.addEventListener("click", e => {
+  if (e.target.tagName === "A") { navLinks.classList.remove("open"); burger.classList.remove("open"); }
+});
+
+/* ---------- cursor glow ---------- */
+const glow = document.getElementById("cursorGlow");
+if (!prefersReduced) addEventListener("pointermove", e => {
+  glow.style.left = e.clientX + "px";
+  glow.style.top  = e.clientY + "px";
+}, {passive:true});
+
+/* ---------- reveal on scroll ---------- */
+const io = new IntersectionObserver(es => es.forEach(en => {
+  if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+}), {threshold:.14, rootMargin:"0px 0px -8% 0px"});
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+/* ---------- ticker duplication ---------- */
+const track = document.getElementById("tickerTrack");
+track.innerHTML += track.innerHTML;
+
+/* ============================================================
+   HERO — WebGL liquid resin shader
+   ============================================================ */
+(function resinHero(){
+  const canvas = document.getElementById("resin-canvas");
+  const gl = canvas.getContext("webgl", {antialias:false, alpha:false});
+  if (!gl || prefersReduced) { canvas.style.background = "radial-gradient(ellipse at 30% 20%, #14202c, #0b0f14)"; if(prefersReduced) canvas.remove(); return; }
+
+  const vsrc = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
+  const fsrc = `
+precision highp float;
+uniform float uT; uniform vec2 uR; uniform vec2 uM;
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float noise(vec2 p){
+  vec2 i=floor(p),f=fract(p); f=f*f*(3.-2.*f);
+  return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),f.x),f.y);
+}
+float fbm(vec2 p){
+  float v=0.,a=.5;
+  mat2 r=mat2(.8,.6,-.6,.8);
+  for(int i=0;i<5;i++){v+=a*noise(p);p=r*p*2.03;a*=.5;}
+  return v;
+}
+void main(){
+  vec2 uv=gl_FragCoord.xy/uR; vec2 st=uv; st.x*=uR.x/uR.y;
+  float t=uT*.055;
+  vec2 m=uM; m.x*=uR.x/uR.y;
+  vec2 q=vec2(fbm(st*1.35+t),fbm(st*1.35-t*.7+4.));
+  float md=exp(-length(st-m)*1.6)*.4;
+  vec2 w=st*1.35+q*1.25+vec2(md);
+  float f=fbm(w+fbm(w+t*.5)*.9);
+  vec3 deep=vec3(.028,.043,.061);
+  vec3 teal=vec3(.05,.42,.55);
+  vec3 cyan=vec3(.13,.83,.93);
+  vec3 copper=vec3(.16,.42,.78);
+  vec3 gold=vec3(.78,.85,.95);
+  vec3 col=mix(deep,teal,smoothstep(.22,.72,f));
+  col=mix(col,copper,smoothstep(.55,.9,fbm(w*1.5-t*.35+7.))*.55);
+  col=mix(col,gold,smoothstep(.72,.98,fbm(w*2.1+t*.25+13.))*.4);
+  float vein=smoothstep(.028,0.,abs(f-.52))*smoothstep(.0,.35,q.x);
+  col+=cyan*vein*.8;
+  col+=vec3(1.)*smoothstep(.985,1.,fbm(w*3.4-t*.5))*.35;
+  col*=1.-.55*pow(length(uv-vec2(.5,.45)),1.5);
+  gl_FragColor=vec4(col,1.);
+}`;
+  function sh(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;}
+  const prog=gl.createProgram();
+  gl.attachShader(prog,sh(gl.VERTEX_SHADER,vsrc));
+  gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,fsrc));
+  gl.linkProgram(prog); gl.useProgram(prog);
+  const buf=gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(prog,"p");
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const uT=gl.getUniformLocation(prog,"uT"),uR=gl.getUniformLocation(prog,"uR"),uM=gl.getUniformLocation(prog,"uM");
+  let mx=.5,my=.45,tx=.5,ty=.45;
+  addEventListener("pointermove",e=>{tx=e.clientX/innerWidth;ty=1-e.clientY/innerHeight;},{passive:true});
+  function resize(){
+    const d=Math.min(devicePixelRatio||1,1.5);
+    canvas.width=canvas.clientWidth*d; canvas.height=canvas.clientHeight*d;
+    gl.viewport(0,0,canvas.width,canvas.height);
+  }
+  addEventListener("resize",resize); resize();
+  let start=performance.now(), visible=true;
+  new IntersectionObserver(es=>visible=es[0].isIntersecting).observe(canvas);
+  (function loop(now){
+    requestAnimationFrame(loop);
+    if(!visible) return;
+    mx+=(tx-mx)*.045; my+=(ty-my)*.045;
+    gl.uniform1f(uT,(now-start)/1000);
+    gl.uniform2f(uR,canvas.width,canvas.height);
+    gl.uniform2f(uM,mx,my);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+  })(start);
+})();
+
+/* ============================================================
+   FINISH LAB — realistic room scene + color pickers
+   ============================================================ */
+(function finishLab(){
+  const canvas = document.getElementById("lab-canvas");
+  const ctx = canvas.getContext("2d");
+  const shell = canvas.parentElement;
+
+  let system = "flake";
+  let baseColor = "#3a3f46";
+  let blend = "domino";
+  let density = 1;
+  let metalColor = "#1e56b8";
+  let swirlColors = ["#173a5e", "#e8edf3", "#7ba3d4"];
+
+  const BLENDS = {
+    domino:    {name:"Domino",       flakes:[{c:"#23262b",w:.45},{c:"#e8e4da",w:.35},{c:"#7c8288",w:.2}]},
+    smokey:    {name:"Smokey Ridge", flakes:[{c:"#2e353d",w:.35},{c:"#5b6670",w:.3},{c:"#9aa7b3",w:.25},{c:"#e6e2d8",w:.1}]},
+    riverbed:  {name:"Riverbed",     flakes:[{c:"#1f6f7a",w:.3},{c:"#8fa79b",w:.3},{c:"#d8d3c5",w:.25},{c:"#3d5a52",w:.15}]},
+    copperhead:{name:"Copperhead",   flakes:[{c:"#3a3f47",w:.3},{c:"#c97e3d",w:.3},{c:"#e8e4da",w:.25},{c:"#8a5a2b",w:.15}]}
+  };
+
+  let ripples = [];
+  let running = true;
+  let raf = null;
+
+  /* --- helpers --- */
+  function hex2rgb(h){
+    h = h.replace("#","");
+    return [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16)];
+  }
+  function mix(c1,c2,t){
+    const a=hex2rgb(c1),b=hex2rgb(c2);
+    return "#"+[0,1,2].map(i=>Math.round(a[i]*(1-t)+b[i]*t).toString(16).padStart(2,"0")).join("");
+  }
+  function shade(hex,amt){
+    const c=hex2rgb(hex);
+    return "#"+c.map(v=>Math.max(0,Math.min(255,v+amt)).toString(16).padStart(2,"0")).join("");
+  }
+  function mulberry(seed){ return function(){seed=(seed*16807)%2147483647;return seed/2147483647;} }
+
+  function resize(){
+    const d=Math.min(devicePixelRatio||1,2);
+    canvas.width=shell.clientWidth*d;
+    canvas.height=shell.clientHeight*d;
+  }
+  addEventListener("resize",()=>{resize();draw(performance.now());});
+
+  /* --- draw a wall + floor perspective scene --- */
+  function draw(t){
+    const W=canvas.width, H=canvas.height;
+    const horizon=Math.floor(H*0.30);
+    const seedBase = system==='flake'?42: system==='metallic'?7:99;
+    const rnd = mulberry(seedBase);
+
+    /* wall */
+    const wallGrad=ctx.createLinearGradient(0,0,0,horizon);
+    wallGrad.addColorStop(0,shade("#141a22",6)); wallGrad.addColorStop(1,shade("#10151c",-4));
+    ctx.fillStyle=wallGrad; ctx.fillRect(0,0,W,horizon);
+    /* wall texture */
+    for(let i=0;i<40;i++){
+      const x=rnd()*W, y=rnd()*horizon, s=8+rnd()*22, a=0.03+rnd()*0.05;
+      ctx.fillStyle=rnd()>0.5?"rgba(255,255,255,"+a+")":"rgba(0,0,0,"+a+")";
+      ctx.fillRect(x,y,s,s);
+    }
+    /* wall base shadow */
+    ctx.fillStyle="rgba(0,0,0,.35)"; ctx.fillRect(0,horizon-4,W,4);
+
+    /* floor base */
+    const floorGrad=ctx.createLinearGradient(0,horizon,0,H);
+    floorGrad.addColorStop(0,shade(baseColor,16));
+    floorGrad.addColorStop(0.3,shade(baseColor,6));
+    floorGrad.addColorStop(1,shade(baseColor,-6));
+    ctx.fillStyle=floorGrad;
+    ctx.beginPath();
+    ctx.moveTo(0,horizon); ctx.lineTo(W,horizon); ctx.lineTo(W,H); ctx.lineTo(0,H); ctx.closePath();
+    ctx.fill();
+
+    /* floor concrete mottle (subtle) */
+    const mRnd = mulberry(11);
+    for(let i=0;i<26;i++){
+      const y=horizon + mRnd()*(H-horizon);
+      const x=mRnd()*W, r=14+mRnd()*40, a=0.04+mRnd()*0.07;
+      const g=ctx.createRadialGradient(x,y,0,x,y,r);
+      const col = mRnd()>0.5 ? "255,255,255" : "0,0,0";
+      g.addColorStop(0,"rgba("+col+","+a+")"); g.addColorStop(1,"rgba("+col+",0)");
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r,0,7); ctx.fill();
+    }
+
+    if(system==="flake"){
+      /* broadcast flakes with perspective */
+      const rows = 22;
+      for(let r=0;r<rows;r++){
+        const t0 = r/rows;
+        const y0 = horizon + t0*t0*(H-horizon);
+        const y1 = horizon + ((r+1)/rows)*((r+1)/rows)*(H-horizon);
+        const rowH = Math.max(2, y1-y0);
+        const scale = 0.25 + (y0-horizon)/(H-horizon)*1.9; /* near rows bigger flakes */
+        const cols = 30;
+        for(let c=0;c<cols;c++){
+          const x0 = (c/cols)*W + (r%2)* (W/cols)*0.5;
+          const x1 = ((c+1)/cols)*W + (r%2)* (W/cols)*0.5;
+          const cw = Math.max(2, x1-x0);
+          const nFlakes = Math.floor((cw*rowH)/( (10*scale)*(10*scale) ) * density * 1.4);
+          const fRnd = mulberry(r*31+c*17+seedBase);
+          for(let f=0;f<nFlakes;f++){
+            const fx = x0 + fRnd()*cw;
+            const fy = y0 + fRnd()*rowH;
+            const sz = (2.2 + fRnd()*2.4) * scale;
+            let pick=fRnd(), acc=0, fc=BLENDS[blend].flakes[0].c;
+            for(const fl of BLENDS[blend].flakes){acc+=fl.w; if(pick<=acc){fc=fl.c;break;}}
+            ctx.save();
+            ctx.translate(fx,fy);
+            ctx.rotate(fRnd()*Math.PI);
+            ctx.globalAlpha=0.85+fRnd()*0.15;
+            ctx.fillStyle=fc;
+            ctx.beginPath();
+            const sides=5+Math.floor(fRnd()*3);
+            for(let k=0;k<sides;k++){
+              const a=(k/sides)*Math.PI*2, rr=sz*(0.65+fRnd()*0.5);
+              k?ctx.lineTo(Math.cos(a)*rr,Math.sin(a)*rr):ctx.moveTo(Math.cos(a)*rr,Math.sin(a)*rr);
+            }
+            ctx.closePath();ctx.fill();
+            ctx.restore();
+          }
+        }
+      }
+      /* subtle top-coat sheen across floor */
+      const sheen=ctx.createLinearGradient(0,horizon,0,H);
+      sheen.addColorStop(0,"rgba(255,255,255,.10)");
+      sheen.addColorStop(.4,"rgba(255,255,255,.02)");
+      sheen.addColorStop(1,"rgba(255,255,255,.05)");
+      ctx.fillStyle=sheen;
+      ctx.beginPath();ctx.moveTo(0,horizon);ctx.lineTo(W,horizon);ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fill();
+      /* light streak */
+      ctx.save();
+      ctx.globalAlpha=.12;
+      ctx.fillStyle="#fff";
+      ctx.beginPath();
+      ctx.moveTo(W*.08,H); ctx.lineTo(W*.22,horizon); ctx.lineTo(W*.34,horizon); ctx.lineTo(W*.18,H); ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    if(system==="metallic"){
+      /* swirling metallic pour */
+      const mRnd = mulberry(seedBase);
+      const bands = 16;
+      for(let i=0;i<bands;i++){
+        const y = horizon + mRnd()*(H-horizon)*0.95;
+        const x = mRnd()*W;
+        const len = W*(0.4+mRnd()*0.7);
+        const h = (12+mRnd()*30) * (0.3+(y-horizon)/(H-horizon)*1.5);
+        const wob = 10+mRnd()*26;
+        const col = i%3===0 ? shade(metalColor,-24) : i%3===1 ? metalColor : shade(metalColor,36);
+        const g=ctx.createLinearGradient(x,y,x+len,y+h);
+        g.addColorStop(0,col); g.addColorStop(1,shade(col,-30));
+        ctx.globalAlpha = 0.14+mRnd()*0.18;
+        ctx.fillStyle=g;
+        ctx.beginPath();
+        ctx.moveTo(x,y);
+        for(let px=0;px<=len;px+=len/8){
+          ctx.lineTo(x+px, y + Math.sin(px/len*Math.PI*2 + i)*wob + px/len*h);
+        }
+        for(let px=len;px>=0;px-=len/8){
+          ctx.lineTo(x+px, y + h*0.5 + Math.sin(px/len*Math.PI*2 + i+1)*wob + px/len*h);
+        }
+        ctx.closePath();ctx.fill();
+      }
+      ctx.globalAlpha=1;
+      /* metallic pearlescent highlights */
+      const pRnd = mulberry(77);
+      for(let i=0;i<34;i++){
+        const y=horizon+pRnd()*(H-horizon);
+        const x=pRnd()*W, s=1.5+pRnd()*4;
+        ctx.fillStyle="rgba(255,255,255,"+(0.15+pRnd()*0.25)+")";
+        ctx.beginPath();ctx.arc(x,y,s,0,7);ctx.fill();
+      }
+      /* gloss sheen */
+      const sheen=ctx.createLinearGradient(0,horizon,W,H);
+      sheen.addColorStop(0,"rgba(255,255,255,.16)");
+      sheen.addColorStop(.5,"rgba(255,255,255,.02)");
+      sheen.addColorStop(1,"rgba(255,255,255,.08)");
+      ctx.fillStyle=sheen;
+      ctx.beginPath();ctx.moveTo(0,horizon);ctx.lineTo(W,horizon);ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fill();
+    }
+
+    if(system==="swirl"){
+      /* marbled metallic swirl — agate-style contour banding like a real pour */
+      const sRnd = mulberry(31);
+      const pri=swirlColors[0], acc=swirlColors[1], hi=swirlColors[2];
+      const rgbaOf=(h,a)=>{const q=hex2rgb(h);return "rgba("+q[0]+","+q[1]+","+q[2]+","+a+")";};
+
+      /* deep base coat */
+      const sg=ctx.createLinearGradient(0,horizon,0,H);
+      sg.addColorStop(0,shade(pri,14)); sg.addColorStop(.5,pri); sg.addColorStop(1,shade(pri,-10));
+      ctx.fillStyle=sg;
+      ctx.beginPath();ctx.moveTo(0,horizon);ctx.lineTo(W,horizon);ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fill();
+
+      /* soft under-pools of accent / highlight for depth */
+      for(let i=0;i<12;i++){
+        const y=horizon+sRnd()*(H-horizon);
+        const x=sRnd()*W;
+        const persp=0.35+(y-horizon)/(H-horizon)*1.6;
+        const r=(30+sRnd()*80)*persp;
+        const col=i%3===0?acc:(i%3===1?hi:shade(pri,30));
+        const g=ctx.createRadialGradient(x,y,0,x,y,r);
+        g.addColorStop(0,rgbaOf(col,0.10+sRnd()*0.12));
+        g.addColorStop(1,rgbaOf(col,0));
+        ctx.fillStyle=g;
+        ctx.beginPath();ctx.ellipse(x,y,r,r*0.5,0,0,7);ctx.fill();
+      }
+
+      /* agate contour cells — the signature marbled look */
+      const N=16;
+      function smoothClosed(pts){
+        const n=pts.length;
+        ctx.moveTo((pts[0][0]+pts[n-1][0])/2,(pts[0][1]+pts[n-1][1])/2);
+        for(let i=0;i<n;i++){
+          const p=pts[i],q=pts[(i+1)%n];
+          ctx.quadraticCurveTo(p[0],p[1],(p[0]+q[0])/2,(p[1]+q[1])/2);
+        }
+        ctx.closePath();
+      }
+      for(let c=0;c<16;c++){
+        const cy=horizon+(0.06+sRnd()*0.9)*(H-horizon);
+        const cx=W*(0.04+sRnd()*0.92);
+        const persp=0.3+(cy-horizon)/(H-horizon)*1.7;
+        const R=(18+sRnd()*46)*persp;
+        const rings=3+Math.floor(sRnd()*4);
+        const jit=[];for(let i=0;i<N;i++)jit.push(0.72+sRnd()*0.55);
+        const wob=sRnd()*Math.PI*2;
+        for(let ring=rings;ring>=1;ring--){
+          const f=ring/rings, r=R*f, band=ring%4;
+          let col,alpha;
+          if(band===0){col=acc;alpha=0.5+sRnd()*0.3;}
+          else if(band===1){col=hi;alpha=0.35+sRnd()*0.25;}
+          else if(band===2){col=shade(pri,34);alpha=0.4;}
+          else{col=shade(pri,-18);alpha=0.45;}
+          ctx.strokeStyle=rgbaOf(col,alpha);
+          ctx.lineWidth=Math.max(0.7,(0.8+sRnd()*2.4)*persp*(ring===1?1.6:1));
+          ctx.beginPath();
+          const pts=[];
+          for(let i=0;i<N;i++){
+            const a=(i/N)*Math.PI*2;
+            const rr=r*jit[i]*(1+0.10*Math.sin(a*3+wob+ring*0.7));
+            pts.push([cx+Math.cos(a)*rr,cy+Math.sin(a)*rr*0.48]);
+          }
+          smoothClosed(pts);ctx.stroke();
+        }
+        if(c%3===0){
+          ctx.fillStyle=rgbaOf(acc,0.16);
+          ctx.beginPath();
+          const pts=[];
+          for(let i=0;i<N;i++){
+            const a=(i/N)*Math.PI*2;
+            const rr=R*0.28*jit[i];
+            pts.push([cx+Math.cos(a)*rr,cy+Math.sin(a)*rr*0.48]);
+          }
+          smoothClosed(pts);ctx.fill();
+        }
+      }
+
+      /* long drifting veins sweeping across the pour */
+      ctx.lineCap="round";
+      for(let i=0;i<7;i++){
+        const y=horizon+sRnd()*(H-horizon);
+        const x=-W*0.05+sRnd()*W*0.5;
+        const len=W*(0.5+sRnd()*0.6);
+        const persp=0.4+(y-horizon)/(H-horizon)*1.4;
+        ctx.strokeStyle=rgbaOf(i%2?acc:hi,0.25+sRnd()*0.25);
+        ctx.lineWidth=Math.max(0.8,(1+sRnd()*2)*persp);
+        const ph=sRnd()*Math.PI*2, amp=(10+sRnd()*22)*persp*0.5;
+        ctx.beginPath();ctx.moveTo(x,y);
+        for(let px=0;px<=len;px+=len/12){
+          ctx.lineTo(x+px,y+Math.sin(px/len*Math.PI*2.2+ph)*amp+px*0.06);
+        }
+        ctx.stroke();
+      }
+
+      /* pearlescent shimmer flecks */
+      const pRnd=mulberry(91);
+      for(let i=0;i<60;i++){
+        const y=horizon+pRnd()*(H-horizon);
+        const x=pRnd()*W;
+        const persp=0.3+(y-horizon)/(H-horizon)*1.7;
+        ctx.fillStyle="rgba(255,255,255,"+(0.10+pRnd()*0.28)+")";
+        ctx.beginPath();ctx.arc(x,y,(0.6+pRnd()*1.8)*persp,0,7);ctx.fill();
+      }
+
+      /* specular light reflections — gloss hotspots like the reference photo */
+      for(let i=0;i<6;i++){
+        const y=horizon+(0.14+pRnd()*0.8)*(H-horizon);
+        const x=W*(0.08+pRnd()*0.84);
+        const persp=0.4+(y-horizon)/(H-horizon)*1.5;
+        const r=(8+pRnd()*16)*persp;
+        const g=ctx.createRadialGradient(x,y,0,x,y,r*2.6);
+        g.addColorStop(0,"rgba(255,255,255,.5)");
+        g.addColorStop(.25,"rgba(255,255,255,.14)");
+        g.addColorStop(1,"rgba(255,255,255,0)");
+        ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*2.6,0,7);ctx.fill();
+        ctx.fillStyle="rgba(255,255,255,.75)";
+        ctx.beginPath();ctx.arc(x,y,Math.max(1.2,r*0.16),0,7);ctx.fill();
+      }
+
+      /* window light streaks near the back edge */
+      for(let i=0;i<4;i++){
+        const x=W*(0.12+pRnd()*0.76), w=(5+pRnd()*9);
+        const y0=horizon+3, y1=horizon+(H-horizon)*(0.14+pRnd()*0.22);
+        const g=ctx.createLinearGradient(0,y0,0,y1);
+        g.addColorStop(0,"rgba(255,255,255,.13)");g.addColorStop(1,"rgba(255,255,255,0)");
+        ctx.fillStyle=g;ctx.fillRect(x,y0,w,y1-y0);
+      }
+
+      /* final gloss sheen */
+      const sheen=ctx.createLinearGradient(0,horizon,W,H);
+      sheen.addColorStop(0,"rgba(255,255,255,.12)");
+      sheen.addColorStop(.45,"rgba(255,255,255,.02)");
+      sheen.addColorStop(1,"rgba(255,255,255,.06)");
+      ctx.fillStyle=sheen;
+      ctx.beginPath();ctx.moveTo(0,horizon);ctx.lineTo(W,horizon);ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fill();
+    }
+
+    if(system==="solid"){
+      /* clean solid color floor */
+      const sRnd=mulberry(55);
+      /* slight trowel marks */
+      for(let i=0;i<22;i++){
+        const y=horizon + sRnd()*(H-horizon);
+        const x=sRnd()*W, w=30+sRnd()*90, h=1+sRnd()*2;
+        ctx.globalAlpha=0.05+sRnd()*0.08;
+        ctx.fillStyle=sRnd()>0.5?"rgba(255,255,255,1)":"rgba(0,0,0,1)";
+        ctx.fillRect(x,y,w,h);
+      }
+      ctx.globalAlpha=1;
+      /* crisp reflection */
+      const refl=ctx.createLinearGradient(0,horizon,0,H);
+      refl.addColorStop(0,"rgba(255,255,255,.20)");
+      refl.addColorStop(.35,"rgba(255,255,255,.03)");
+      refl.addColorStop(1,"rgba(255,255,255,.07)");
+      ctx.fillStyle=refl;
+      ctx.beginPath();ctx.moveTo(0,horizon);ctx.lineTo(W,horizon);ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fill();
+      /* window light rectangle reflection */
+      ctx.save();
+      ctx.globalAlpha=.14;
+      ctx.fillStyle="#fff";
+      ctx.beginPath();
+      ctx.moveTo(W*.06,H); ctx.lineTo(W*.18,horizon); ctx.lineTo(W*.30,horizon); ctx.lineTo(W*.14,H); ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    /* floor edge vignette */
+    const v=ctx.createRadialGradient(W/2,H*0.72,H*0.15,W/2,H*0.72,H*0.8);
+    v.addColorStop(0,"rgba(0,0,0,0)");v.addColorStop(1,"rgba(0,0,0,.35)");
+    ctx.fillStyle=v; ctx.fillRect(0,0,W,H);
+
+    /* ripples */
+    ripples=ripples.filter(rp=>t-rp.t<1200);
+    for(const rp of ripples){
+      const p=(t-rp.t)/1200;
+      const y = Math.max(rp.y, horizon+10);
+      const gr=ctx.createRadialGradient(rp.x,y,0,rp.x,y,160*p+14);
+      gr.addColorStop(0,"rgba(34,211,238,"+(0.18*(1-p))+")");
+      gr.addColorStop(.75,"rgba(34,211,238,"+(0.06*(1-p))+")");
+      gr.addColorStop(1,"rgba(34,211,238,0)");
+      ctx.fillStyle=gr;
+      ctx.beginPath();ctx.arc(rp.x,y,160*p+14,0,7);ctx.fill();
+      ctx.strokeStyle="rgba(34,211,238,"+(0.5*(1-p))+")";
+      ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(rp.x,y,160*p,0,7);ctx.stroke();
+    }
+  }
+
+  function loop(t){
+    raf=requestAnimationFrame(loop);
+    if(running) draw(t);
+  }
+  new IntersectionObserver(es=>running=es[0].isIntersecting).observe(canvas);
+
+  resize();
+  if(prefersReduced){ draw(0); } else { raf=requestAnimationFrame(loop); }
+
+  canvas.addEventListener("pointerdown",e=>{
+    const r=canvas.getBoundingClientRect(),d=canvas.width/r.width;
+    ripples.push({x:(e.clientX-r.left)*d,y:(e.clientY-r.top)*d,t:performance.now()});
+    if(prefersReduced) draw(0);
+  });
+
+  /* ---------- controls ---------- */
+  const blendName=document.getElementById("blendName");
+  const blendNote=document.getElementById("blendNote");
+  function updateOut(){
+    if(system==="flake"){
+      blendName.textContent=BLENDS[blend].name+" on "+hexName(baseColor);
+      blendNote.textContent=(density>=1?"Full broadcast":density>=.5?"Medium broadcast":"Light broadcast")+" · gloss polyaspartic topcoat";
+    } else if(system==="metallic"){
+      blendName.textContent="Metallic pour in "+hexName(metalColor);
+      blendNote.textContent="Hand-blended metallic pigments · high-gloss finish";
+    } else if(system==="swirl"){
+      blendName.textContent="Swirl pour — "+hexName(swirlColors[0])+" / "+hexName(swirlColors[1]);
+      blendNote.textContent="Marbled multi-color pour · high-gloss finish";
+    } else {
+      blendName.textContent="Solid color — "+hexName(baseColor);
+      blendNote.textContent="High-gloss, seamless solid color system";
+    }
+  }
+  function hexName(hex){
+    const map={"#3a3f46":"Graphite","#26292e":"Charcoal","#8a7a5f":"Sandstone","#b8b2a2":"Bone","#1e3a5c":"Deep Blue","#1e56b8":"Sapphire","#c47f2a":"Copper","#8a8f96":"Pewter","#0f6b5e":"Emerald","#173a5e":"Midnight Navy","#e8edf3":"Pearl White","#7ba3d4":"Steel Blue"};
+    return map[hex.toLowerCase()]||hex;
+  }
+
+  /* system toggle */
+  document.getElementById("systemSeg").addEventListener("click",e=>{
+    const btn=e.target.closest("button"); if(!btn) return;
+    [...e.currentTarget.children].forEach(b=>b.classList.toggle("active",b===btn));
+    system=btn.dataset.system;
+    document.getElementById("flakeRow").style.display = system==="flake"?"block":"none";
+    document.getElementById("densityRow").style.display = system==="flake"?"block":"none";
+    document.getElementById("metallicRow").style.display = system==="metallic"?"block":"none";
+    document.getElementById("swirlRow").style.display = system==="swirl"?"block":"none";
+    updateOut();
+    if(prefersReduced) draw(0);
+  });
+
+  /* base color picker + presets */
+  const baseIn=document.getElementById("baseColor");
+  const baseHex=document.getElementById("baseHex");
+  function setBase(c,btn){
+    baseColor=c; baseIn.value=c; baseHex.textContent=c;
+    document.querySelectorAll("#basePresets .cpreset").forEach(b=>b.classList.toggle("active",b===btn));
+    updateOut(); if(prefersReduced) draw(0);
+  }
+  document.getElementById("basePresets").addEventListener("click",e=>{
+    const btn=e.target.closest("button"); if(!btn) return;
+    setBase(btn.dataset.color,btn);
+  });
+  baseIn.addEventListener("input",()=>setBase(baseIn.value,null));
+
+  /* blend swatches */
+  document.getElementById("blendSwatches").addEventListener("click",e=>{
+    const btn=e.target.closest("button"); if(!btn) return;
+    [...e.currentTarget.children].forEach(b=>b.classList.toggle("active",b===btn));
+    blend=btn.dataset.blend;
+    updateOut(); if(prefersReduced) draw(0);
+  });
+
+  /* density */
+  document.getElementById("densitySeg").addEventListener("click",e=>{
+    const btn=e.target.closest("button"); if(!btn) return;
+    [...e.currentTarget.children].forEach(b=>b.classList.toggle("active",b===btn));
+    density=parseFloat(btn.dataset.density);
+    updateOut(); if(prefersReduced) draw(0);
+  });
+
+  /* metallic color */
+  const metalIn=document.getElementById("metalColor");
+  const metalHex=document.getElementById("metalHex");
+  function setMetal(c,btn){
+    metalColor=c; metalIn.value=c; metalHex.textContent=c;
+    document.querySelectorAll("#metalPresets .mpreset").forEach(b=>b.classList.toggle("active",b===btn));
+    updateOut(); if(prefersReduced) draw(0);
+  }
+  document.getElementById("metalPresets").addEventListener("click",e=>{
+    const btn=e.target.closest("button"); if(!btn) return;
+    setMetal(btn.dataset.color,btn);
+  });
+  metalIn.addEventListener("input",()=>setMetal(metalIn.value,null));
+
+  /* swirl colors */
+  const swirlInputs=[document.getElementById("swirlColor1"),document.getElementById("swirlColor2"),document.getElementById("swirlColor3")];
+  swirlInputs.forEach((inp,i)=>{
+    inp.addEventListener("input",()=>{
+      swirlColors[i]=inp.value;
+      updateOut(); if(prefersReduced) draw(0);
+    });
+  });
+
+  /* pre-fill the quote form */
+  document.getElementById("labQuoteBtn").addEventListener("click",()=>{
+    const finishSel=document.querySelector('[data-lab="finish"]');
+    const msg=document.querySelector('[data-lab="message"]');
+    let sel,txt;
+    if(system==="flake"){ sel="Chip / flake broadcast"; txt="Finish Lab: "+BLENDS[blend].name+" flake on a "+hexName(baseColor)+" base, "+(density>=1?"full broadcast":density>=.5?"medium broadcast":"light broadcast")+"."; }
+    else if(system==="metallic"){ sel="Metallic epoxy"; txt="Finish Lab: metallic pour in "+hexName(metalColor)+" ("+metalColor+")."; }
+    else if(system==="swirl"){ sel="Metallic epoxy"; txt="Finish Lab: swirl pour — primary "+swirlColors[0]+", accent "+swirlColors[1]+", highlight "+swirlColors[2]+"."; }
+    else { sel="Solid color"; txt="Finish Lab: solid color system in "+hexName(baseColor)+" ("+baseColor+")."; }
+    [...finishSel.options].forEach(o=>{ if(o.text===sel) finishSel.value=o.value||o.text; });
+    finishSel.selectedIndex=[...finishSel.options].findIndex(o=>o.text===sel);
+    msg.value=txt;
+    toast("Finish Lab selection added to your quote request");
+  });
+  updateOut();
+})();
+
+/* ============================================================
+   FAQ accordion
+   ============================================================ */
+document.querySelectorAll(".faq-item").forEach(item=>{
+  const q=item.querySelector(".faq-q"),a=item.querySelector(".faq-a");
+  q.addEventListener("click",()=>{
+    const open=item.classList.toggle("open");
+    q.setAttribute("aria-expanded",open);
+    a.style.maxHeight=open?a.scrollHeight+"px":"0";
+  });
+});
+
+/* ============================================================
+   QUOTE FORM — Formspree (async, no page reload)
+   ============================================================ */
+const form=document.getElementById("quoteForm");
+const success=document.getElementById("formSuccess");
+const submitBtn=document.getElementById("submitBtn");
+form.addEventListener("submit",async e=>{
+  e.preventDefault();
+  const action=form.getAttribute("action");
+  if(action.includes("YOUR_FORMSPREE_ID")){
+    toast("Form not wired yet — replace YOUR_FORMSPREE_ID in index.html");
+    return;
+  }
+  submitBtn.disabled=true;
+  submitBtn.textContent="Sending…";
+  try{
+    const res=await fetch(action,{method:"POST",body:new FormData(form),headers:{Accept:"application/json"}});
+    if(res.ok){
+      form.style.display="none";
+      success.classList.add("show");
+    }else{
+      toast("Something went wrong — please call (865) 801-3736 instead.");
+      submitBtn.disabled=false;submitBtn.textContent="Request My Free Quote";
+    }
+  }catch(err){
+    toast("Network error — please call (865) 801-3736 instead.");
+    submitBtn.disabled=false;submitBtn.textContent="Request My Free Quote";
+  }
+});
+
+/* ---------- toast ---------- */
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove("show"),3600);
+}
+})();
+</script>
+</body>
+</html>
