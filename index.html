@@ -789,15 +789,13 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
         <div class="lab-field" id="baseRow">
           <label>Base coat color <span style="text-transform:none;letter-spacing:0;opacity:.7">(shows through the flake)</span></label>
           <div class="color-pick-row">
-            <input type="color" id="baseColor" value="#3a3f46" aria-label="Pick custom base color">
+            <input type="color" id="baseColor" value="#2b2b2b" aria-label="Pick custom base color">
             <div class="color-presets" id="basePresets">
-              <button type="button" class="cpreset active" data-color="#3a3f46" style="--c:#3a3f46" aria-label="Graphite"><span></span></button>
-              <button type="button" class="cpreset" data-color="#26292e" style="--c:#26292e" aria-label="Charcoal"><span></span></button>
-              <button type="button" class="cpreset" data-color="#8a7a5f" style="--c:#8a7a5f" aria-label="Sandstone"><span></span></button>
-              <button type="button" class="cpreset" data-color="#b8b2a2" style="--c:#b8b2a2" aria-label="Bone"><span></span></button>
-              <button type="button" class="cpreset" data-color="#1e3a5c" style="--c:#1e3a5c" aria-label="Deep Blue"><span></span></button>
+              <button type="button" class="cpreset active" data-color="#2b2b2b" style="--c:#2b2b2b" aria-label="Black"><span></span></button>
+              <button type="button" class="cpreset" data-color="#e9e6df" style="--c:#e9e6df" aria-label="White"><span></span></button>
+              <button type="button" class="cpreset" data-color="#c2ad8c" style="--c:#c2ad8c" aria-label="Tan"><span></span></button>
             </div>
-            <span class="color-hex" id="baseHex">#3a3f46</span>
+            <span class="color-hex" id="baseHex">#2b2b2b</span>
           </div>
         </div>
 
@@ -851,7 +849,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
         </div>
 
         <div class="lab-out">
-          <div><b id="blendName">Domino on Graphite</b><small id="blendNote">Full broadcast · gloss polyaspartic topcoat</small></div>
+          <div><b id="blendName">Domino on Black</b><small id="blendNote">Full broadcast · gloss polyaspartic topcoat</small></div>
           <a class="btn btn-primary btn-sm" href="#quote" id="labQuoteBtn">Request this finish</a>
         </div>
       </div>
@@ -1342,7 +1340,7 @@ void main(){
   const shell = canvas.parentElement;
 
   let system = "flake";
-  let baseColor = "#3a3f46";
+  let baseColor = "#2b2b2b";
   let blend = "domino";
   let density = 1;            /* 0.25 light | 0.5 medium | 0.75 heavy | 1 full */
   let metalColor = "#1e56b8";
@@ -1353,10 +1351,10 @@ void main(){
 
   /* blend -> flake texture + tint applied to the neutral swatch */
   const BLENDS = {
-    domino:    {name:"Domino",       tex:"gray",  tint:null},
-    smokey:    {name:"Smokey Ridge", tex:"gray",  tint:"#6b7683"},
-    riverbed:  {name:"Riverbed",     tex:"earth", tint:"#7c8a80"},
-    copperhead:{name:"Copperhead",   tex:"earth", tint:null}
+    domino:    {name:"Domino",       set:"gray"},
+    smokey:    {name:"Smokey Ridge", set:"blue"},
+    riverbed:  {name:"Riverbed",     set:"earth"},
+    copperhead:{name:"Copperhead",   set:"earth"}
   };
 
   /* --- texture images (real finish photos, tileable) --- */
@@ -1366,15 +1364,16 @@ void main(){
     im.onload = ()=>{ TEX[key]=im; TEX.ready[key]=true; draw(performance.now()); };
     im.src = src;
   }
-  /* flake: one real photo per density + per blend base */
-  loadTex("flake-gray-full",   "assets/textures/flake-full.webp");
-  loadTex("flake-gray-heavy",  "assets/textures/flake-heavy.webp");
-  loadTex("flake-gray-medium", "assets/textures/flake-medium.webp");
-  loadTex("flake-gray-light",  "assets/textures/flake-light.webp");
-  loadTex("flake-earth-full",  "assets/textures/flake-earth.webp");
-  loadTex("metallic",          "assets/textures/metallic-base.webp");
-  loadTex("metallicColor",     "assets/textures/metallic-color.webp");
-  loadTex("solid",             "assets/textures/solid-base.webp");
+  /* knockout flake overlays (transparent background — only flakes drawn) */
+  loadTex("flakes-gray-light",  "assets/textures/flakes-light.webp");
+  loadTex("flakes-gray-medium", "assets/textures/flakes-medium.webp");
+  loadTex("flakes-gray-heavy",  "assets/textures/flakes-heavy.webp");
+  loadTex("flakes-gray-full",   "assets/textures/flakes-full.webp");
+  loadTex("flakes-earth-full",  "assets/textures/flakes-earth.webp");
+  loadTex("flakes-blue-full",   "assets/textures/flakes-blue.webp");
+  loadTex("metallic",           "assets/textures/metallic-base.webp");
+  loadTex("metallicColor",      "assets/textures/metallic-color.webp");
+  loadTex("solid",              "assets/textures/solid-base.webp");
 
   /* offscreen scratch canvases */
   const scratch = document.createElement("canvas");
@@ -1491,54 +1490,35 @@ void main(){
       floorGrad.addColorStop(.5,shade(metalColor,-6));
       floorGrad.addColorStop(1,shade(metalColor,-22));
     } else {
-      floorGrad.addColorStop(0,shade(baseColor,14));
-      floorGrad.addColorStop(.35,shade(baseColor,4));
-      floorGrad.addColorStop(1,shade(baseColor,-8));
+      /* flake base coat — keep it close to the true color so black/white/tan read accurately */
+      floorGrad.addColorStop(0,shade(baseColor,8));
+      floorGrad.addColorStop(.35,baseColor);
+      floorGrad.addColorStop(1,shade(baseColor,-6));
     }
     ctx.fillStyle=floorGrad; floorPath(ctx,W,H,horizon); ctx.fill();
 
     /* ===== SYSTEMS ===== */
     if(system==="flake"){
       const fh=H-horizon;
-      /* pick the real photo for this density; earth blends reuse full at lower densities */
       const denKey = density>=1 ? "full" : density>=0.75 ? "heavy" : density>=0.5 ? "medium" : "light";
       const bConf = BLENDS[blend];
-      const texKey = "flake-"+bConf.tex+"-"+denKey;
-      const img = TEX[texKey] || TEX["flake-"+bConf.tex+"-full"] || TEX["flake-gray-"+denKey];
-      if(img && TEX.ready[texKey]!==false){
+      /* gray set has a real photo per density; colored blends reuse their full overlay */
+      const key = bConf.set==="gray" ? "flakes-gray-"+denKey : "flakes-"+bConf.set+"-full";
+      const img = TEX[key];
+      if(img){
         sctx.clearRect(0,0,W,H);
         tileFloor(sctx,W,H,horizon,img,150,null,0);
-        /* tint the neutral flake swatch toward the chosen base color so the
-           gray gaps between flakes pick up the base-coat color */
-        sctx.save();
-        sctx.globalCompositeOperation="multiply";
-        const tg=sctx.createLinearGradient(0,horizon,0,H);
-        tg.addColorStop(0,mix(baseColor,"#ffffff",0.55));
-        tg.addColorStop(.5,mix(baseColor,"#ffffff",0.38));
-        tg.addColorStop(1,mix(baseColor,"#ffffff",0.5));
-        sctx.fillStyle=tg; floorPath(sctx,W,H,horizon); sctx.fill();
-        sctx.restore();
-        /* optional blend tint (e.g. Smokey Ridge blue-gray) */
-        if(bConf.tint){
-          sctx.save();
-          sctx.globalCompositeOperation="multiply";
-          sctx.globalAlpha=0.45;
-          sctx.fillStyle=bConf.tint; floorPath(sctx,W,H,horizon); sctx.fill();
-          sctx.restore();
-        }
-        /* clip to floor */
         sctx.save();
         sctx.globalCompositeOperation="destination-in";
         sctx.beginPath(); floorPath(sctx,W,H,horizon); sctx.fillStyle="#fff"; sctx.fill();
         sctx.restore();
         ctx.drawImage(scratch,0,0);
-        /* sparkle on heavier broadcasts */
         if(density>=0.75){
           const sRnd=mulberry(7);
-          for(let i=0;i<40;i++){
+          for(let i=0;i<36;i++){
             const y=horizon+sRnd()*fh, x=sRnd()*W;
-            ctx.fillStyle="rgba(255,255,255,"+(0.08+sRnd()*0.15)+")";
-            ctx.beginPath();ctx.arc(x,y,0.8+sRnd()*1.6,0,7);ctx.fill();
+            ctx.fillStyle="rgba(255,255,255,"+(0.06+sRnd()*0.12)+")";
+            ctx.beginPath();ctx.arc(x,y,0.7+sRnd()*1.4,0,7);ctx.fill();
           }
         }
       }
@@ -1549,43 +1529,30 @@ void main(){
       const fh=H-horizon;
       if(TEX.ready.metallic){
         sctx.clearRect(0,0,W,H);
-        /* 1. marble luminance structure */
         tileFloor(sctx,W,H,horizon,TEX.metallic,250,null,0);
-        /* 2. tint with the chosen metallic pigment */
         sctx.save();
         sctx.globalCompositeOperation="multiply";
         const mg=sctx.createLinearGradient(0,horizon,0,H);
-        mg.addColorStop(0,shade(metalColor,30));
-        mg.addColorStop(.5,mix(metalColor,"#ffffff",0.22));
-        mg.addColorStop(1,shade(metalColor,-6));
+        mg.addColorStop(0,shade(metalColor,18));
+        mg.addColorStop(.5,mix(metalColor,"#ffffff",0.12));
+        mg.addColorStop(1,shade(metalColor,-4));
         sctx.fillStyle=mg; floorPath(sctx,W,H,horizon); sctx.fill();
         sctx.restore();
-        /* 3. screen pass lifts the vein highlights back up (metallic shine) */
         sctx.save();
         sctx.globalCompositeOperation="screen";
-        sctx.globalAlpha=0.4;
+        sctx.globalAlpha=0.28;
         tileFloor(sctx,W,H,horizon,TEX.metallic,250,null,0);
         sctx.restore();
-        /* 4. real color metallic pour, softly blended for authentic variation */
-        if(TEX.ready.metallicColor){
-          sctx.save();
-          sctx.globalCompositeOperation="soft-light";
-          sctx.globalAlpha=0.5;
-          tileFloor(sctx,W,H,horizon,TEX.metallicColor,300,null,0);
-          sctx.restore();
-        }
-        /* clip to floor */
         sctx.save();
         sctx.globalCompositeOperation="destination-in";
         sctx.beginPath(); floorPath(sctx,W,H,horizon); sctx.fillStyle="#fff"; sctx.fill();
         sctx.restore();
         ctx.drawImage(scratch,0,0);
-        /* pearlescent shimmer flecks */
         const pRnd=mulberry(77);
-        for(let i=0;i<30;i++){
+        for(let i=0;i<26;i++){
           const y=horizon+pRnd()*fh, x=pRnd()*W;
-          ctx.fillStyle="rgba(255,255,255,"+(0.08+pRnd()*0.18)+")";
-          ctx.beginPath();ctx.arc(x,y,0.8+pRnd()*2,0,7);ctx.fill();
+          ctx.fillStyle="rgba(255,255,255,"+(0.06+pRnd()*0.14)+")";
+          ctx.beginPath();ctx.arc(x,y,0.7+pRnd()*1.8,0,7);ctx.fill();
         }
       }
       gloss(ctx,W,H,horizon,1.1);
@@ -1676,7 +1643,7 @@ void main(){
     }
   }
   function hexName(hex){
-    const map={"#3a3f46":"Graphite","#26292e":"Charcoal","#8a7a5f":"Sandstone","#b8b2a2":"Bone","#1e3a5c":"Deep Blue","#1e56b8":"Sapphire","#c47f2a":"Copper","#8a8f96":"Pewter","#0f6b5e":"Emerald"};
+    const map={"#2b2b2b":"Black","#e9e6df":"White","#c2ad8c":"Tan","#1e56b8":"Sapphire","#c47f2a":"Copper","#8a8f96":"Pewter","#0f6b5e":"Emerald"};
     return map[hex.toLowerCase()]||hex;
   }
 
