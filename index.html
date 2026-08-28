@@ -28,7 +28,7 @@
 <meta name="twitter:image" content="https://glennsmithepoxy.com/assets/logo.png">
 <meta name="theme-color" content="#0b0f14">
 <link rel="manifest" href="site.webmanifest">
-<link rel="preload" as="image" href="assets/textures/flake-full.webp">
+<link rel="preload" as="image" href="assets/textures/domino-full-quarter.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -346,7 +346,7 @@ header.scrolled{
   background:rgba(34,211,238,.12);border-color:var(--cyan);color:var(--cyan);
   box-shadow:0 0 22px -6px var(--glow-cyan);
 }
-.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:10px}
 .color-pick-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 input[type="color"]{
   -webkit-appearance:none;appearance:none;width:56px;height:56px;padding:0;border:none;border-radius:14px;
@@ -380,8 +380,20 @@ input[type="color"]::-moz-color-swatch{border:1px solid var(--line-hi);border-ra
 }
 .lab-out b{font-family:var(--font-head);font-weight:400;font-size:17px}
 .lab-out small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
-@media (max-width:900px){.lab-grid{grid-template-columns:1fr}}
-@media (max-width:520px){.swatches{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:900px){.lab-grid{grid-template-columns:1fr;gap:36px}}
+@media (max-width:640px){
+  .lab-canvas-shell{aspect-ratio:1/1;max-height:none}
+  .lab-controls{gap:18px}
+  .lab-field label{margin-bottom:10px}
+  .seg button{padding:9px 15px;font-size:13px}
+  .lab-badge{top:12px;left:12px;font-size:10px;padding:6px 11px}
+  .swatch{height:56px}
+  .lab-out{padding:16px 18px}
+}
+@media (max-width:400px){
+  .swatches{grid-template-columns:repeat(2,1fr)}
+  input[type="color"]{width:48px;height:48px}
+}
 
 /* ---------- process ---------- */
 .process{background:var(--bg)}
@@ -768,7 +780,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
   <div class="wrap">
     <span class="eyebrow reveal">Interactive</span>
     <h2 class="sec-title reveal">The Finish Lab</h2>
-    <p class="sec-sub reveal d1" style="margin-bottom:52px">Design your floor. Pick a system, dial in the colors with the pickers, and see it on a real room. Then tell us to pour it.</p>
+    <p class="sec-sub reveal d1" style="margin-bottom:52px">Design your floor. Pick a system, dial in the colors with the pickers, and see it on a single sample. Then tell us to pour it.</p>
 
     <div class="lab-grid">
       <div class="lab-canvas-shell reveal">
@@ -802,20 +814,29 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
         <div class="lab-field" id="flakeRow">
           <label id="lbl-blend">Flake blend</label>
           <div class="swatches" role="group" aria-labelledby="lbl-blend" id="blendSwatches">
-            <button type="button" class="swatch active" data-blend="domino" style="background:linear-gradient(135deg,#2b2f36 40%,#e8e4da 40%)" aria-label="Domino blend"><span>Domino</span></button>
-            <button type="button" class="swatch" data-blend="smokey" style="background:linear-gradient(135deg,#5b6670 33%,#9aa7b3 33%,#9aa7b3 66%,#2e353d 66%)" aria-label="Smokey Ridge blend"><span>Smokey Ridge</span></button>
-            <button type="button" class="swatch" data-blend="riverbed" style="background:linear-gradient(135deg,#1f6f7a 33%,#8fa79b 33%,#8fa79b 66%,#d8d3c5 66%)" aria-label="Riverbed blend"><span>Riverbed</span></button>
-            <button type="button" class="swatch" data-blend="copperhead" style="background:linear-gradient(135deg,#3a3f47 35%,#c97e3d 35%,#c97e3d 65%,#e8e4da 65%)" aria-label="Copperhead blend"><span>Copperhead</span></button>
+            <button type="button" class="swatch active" data-blend="domino" style="background:linear-gradient(135deg,#20242b 45%,#e8e4da 45%)" aria-label="Domino blend"><span>Domino</span></button>
+            <button type="button" class="swatch" data-blend="cabinfever" style="background:linear-gradient(135deg,#6b4a2f 40%,#a9825a 40%,#a9825a 70%,#d6c3a3 70%)" aria-label="Cabin Fever blend"><span>Cabin Fever</span></button>
+            <button type="button" class="swatch" data-blend="gravelshale" style="background:linear-gradient(135deg,#5a5f64 40%,#8b9095 40%,#8b9095 70%,#c4c7ca 70%)" aria-label="Gravel and Shale blend"><span>Gravel / Shale</span></button>
+            <button type="button" class="swatch" data-blend="bucky" style="background:linear-gradient(135deg,#9a7b52 45%,#6e5233 45%,#6e5233 75%,#c8b088 75%)" aria-label="Bucky blend"><span>Bucky</span></button>
+            <button type="button" class="swatch" data-blend="shoreline" style="background:linear-gradient(135deg,#5c7d8c 40%,#8fa6ae 40%,#8fa6ae 70%,#c9d2d4 70%)" aria-label="Shoreline blend"><span>Shoreline</span></button>
           </div>
         </div>
 
         <div class="lab-field" id="densityRow">
           <label id="lbl-density">Broadcast density</label>
           <div class="seg" role="group" aria-labelledby="lbl-density" id="densitySeg">
-            <button type="button" data-density="0.25">Light</button>
-            <button type="button" data-density="0.5">Medium</button>
-            <button type="button" data-density="0.75">Heavy</button>
-            <button type="button" class="active" data-density="1">Full</button>
+            <button type="button" data-density="light">Light</button>
+            <button type="button" data-density="medium">Medium</button>
+            <button type="button" data-density="heavy">Heavy</button>
+            <button type="button" class="active" data-density="full">Full</button>
+          </div>
+        </div>
+
+        <div class="lab-field" id="sizeRow">
+          <label id="lbl-size">Flake size</label>
+          <div class="seg" role="group" aria-labelledby="lbl-size" id="sizeSeg">
+            <button type="button" class="active" data-size="quarter">1/4&Prime;</button>
+            <button type="button" data-size="eighth">1/8&Prime;</button>
           </div>
         </div>
 
@@ -1342,20 +1363,25 @@ void main(){
   let system = "flake";
   let baseColor = "#2b2b2b";
   let blend = "domino";
-  let density = 1;            /* 0.25 light | 0.5 medium | 0.75 heavy | 1 full */
+  let density = "full";       /* light | medium | heavy | full */
+  let size = "quarter";       /* quarter (1/4") | eighth (1/8") */
   let metalColor = "#1e56b8";
   let solidColor = "#8a8f96";
 
   /* density label map for output + quote prefill */
-  const DENSITY_LABEL = {0.25:"Light broadcast",0.5:"Medium broadcast",0.75:"Heavy broadcast",1:"Full broadcast"};
+  const DENSITY_LABEL = {light:"Light broadcast",medium:"Medium broadcast",heavy:"Heavy broadcast",full:"Full broadcast"};
+  const SIZE_LABEL = {quarter:'1/4" flake',eighth:'1/8" flake'};
 
-  /* blend -> flake texture + tint applied to the neutral swatch */
+  /* named flake blends -> one transparent overlay per blend / density / size */
   const BLENDS = {
-    domino:    {name:"Domino",       set:"gray"},
-    smokey:    {name:"Smokey Ridge", set:"blue"},
-    riverbed:  {name:"Riverbed",     set:"earth"},
-    copperhead:{name:"Copperhead",   set:"earth"}
+    domino:     {name:"Domino"},
+    cabinfever: {name:"Cabin Fever"},
+    gravelshale:{name:"Gravel / Shale"},
+    bucky:      {name:"Bucky"},
+    shoreline:  {name:"Shoreline"}
   };
+  const DENSITIES=["light","medium","heavy","full"];
+  const SIZES=["quarter","eighth"];
 
   /* --- texture images (real finish photos, tileable) --- */
   const TEX = {ready:{}};
@@ -1364,15 +1390,14 @@ void main(){
     im.onload = ()=>{ TEX[key]=im; TEX.ready[key]=true; draw(performance.now()); };
     im.src = src;
   }
-  /* knockout flake overlays (transparent background — only flakes drawn) */
-  loadTex("flakes-gray-light",  "assets/textures/flakes-light.webp");
-  loadTex("flakes-gray-medium", "assets/textures/flakes-medium.webp");
-  loadTex("flakes-gray-heavy",  "assets/textures/flakes-heavy.webp");
-  loadTex("flakes-gray-full",   "assets/textures/flakes-full.webp");
-  loadTex("flakes-earth-full",  "assets/textures/flakes-earth.webp");
-  loadTex("flakes-blue-full",   "assets/textures/flakes-blue.webp");
-  loadTex("metallic",           "assets/textures/metallic-base.webp");
-  loadTex("metallicColor",      "assets/textures/metallic-color.webp");
+  /* knockout flake overlays (transparent background — only flakes drawn).
+     One per blend / density / size: <blend>-<density>-<size>.webp */
+  for(const b of Object.keys(BLENDS))
+    for(const d of DENSITIES)
+      for(const z of SIZES)
+        loadTex(b+"-"+d+"-"+z, "assets/textures/"+b+"-"+d+"-"+z+".webp");
+  loadTex("metallic",           "assets/textures/metallic-clean.webp");
+  loadTex("metallicColor",      "assets/textures/metallic-clean.webp");
   loadTex("solid",              "assets/textures/solid-base.webp");
 
   /* offscreen scratch canvases */
@@ -1463,6 +1488,30 @@ void main(){
     c.fillStyle=spec; c.beginPath(); c.arc(hx,hy,r,0,7); c.fill();
   }
 
+  /* gloss clipped to a centered square swatch (single-tile sample) */
+  function glossSquare(c,x,y,side,strength){
+    c.save();
+    c.beginPath(); c.rect(x,y,side,side); c.clip();
+    const sheen=c.createLinearGradient(x,y,x+side,y+side);
+    sheen.addColorStop(0,"rgba(255,255,255,"+(0.16*strength)+")");
+    sheen.addColorStop(.45,"rgba(255,255,255,"+(0.03*strength)+")");
+    sheen.addColorStop(1,"rgba(255,255,255,"+(0.08*strength)+")");
+    c.fillStyle=sheen; c.fillRect(x,y,side,side);
+    const hx=x+side*0.62, hy=y+side*0.42, r=side*0.5;
+    const spec=c.createRadialGradient(hx,hy,0,hx,hy,r);
+    spec.addColorStop(0,"rgba(255,255,255,"+(0.12*strength)+")");
+    spec.addColorStop(1,"rgba(255,255,255,0)");
+    c.fillStyle=spec; c.beginPath(); c.arc(hx,hy,r,0,7); c.fill();
+    c.restore();
+  }
+
+  /* draw one texture across a square (cover, single tile — no repeat, no seams) */
+  function coverSquare(img,x,y,side){
+    const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
+    const sc=Math.max(side/iw,side/ih), dw=iw*sc, dh=ih*sc;
+    ctx.drawImage(img, x+(side-dw)/2, y+(side-dh)/2, dw, dh);
+  }
+
   function draw(t){
     const W=canvas.width, H=canvas.height;
     const horizon=Math.floor(H*0.30);
@@ -1479,85 +1528,65 @@ void main(){
     }
     ctx.fillStyle="rgba(0,0,0,.35)"; ctx.fillRect(0,horizon-4,W,4);
 
-    /* ---- floor underlay (base color) ---- */
-    const floorGrad=ctx.createLinearGradient(0,horizon,0,H);
-    if(system==="solid"){
-      floorGrad.addColorStop(0,shade(solidColor,10));
-      floorGrad.addColorStop(.4,solidColor);
-      floorGrad.addColorStop(1,shade(solidColor,-8));
-    } else if(system==="metallic"){
-      floorGrad.addColorStop(0,shade(metalColor,-16));
-      floorGrad.addColorStop(.5,shade(metalColor,-6));
-      floorGrad.addColorStop(1,shade(metalColor,-22));
-    } else {
-      /* flake base coat — keep it close to the true color so black/white/tan read accurately */
-      floorGrad.addColorStop(0,shade(baseColor,8));
-      floorGrad.addColorStop(.35,baseColor);
-      floorGrad.addColorStop(1,shade(baseColor,-6));
+    /* ===== FLAKE & METALLIC -> single square sample (one tile, no seams) ===== */
+    if(system==="flake" || system==="metallic"){
+      const side=Math.min(W,H)*0.80;
+      const x=(W-side)/2, y=(H-side)/2;
+      /* soft shadow + dark surround so the swatch reads as a sample */
+      ctx.save();
+      ctx.shadowColor="rgba(0,0,0,.55)"; ctx.shadowBlur=Math.max(18,side*0.06); ctx.shadowOffsetY=side*0.03;
+      ctx.fillStyle=system==="flake"?baseColor:shade(metalColor,-10);
+      ctx.fillRect(x,y,side,side);
+      ctx.restore();
+
+      if(system==="flake"){
+        const img=TEX[blend+"-"+density+"-"+size];
+        if(img && TEX.ready[blend+"-"+density+"-"+size]){
+          ctx.save(); ctx.beginPath(); ctx.rect(x,y,side,side); ctx.clip();
+          coverSquare(img,x,y,side);
+          ctx.restore();
+        }
+        glossSquare(ctx,x,y,side,0.9);
+      } else { /* metallic */
+        const img=TEX.metallic;
+        if(img && TEX.ready.metallic){
+          sctx.clearRect(0,0,W,H);
+          /* draw texture once into scratch, tinted toward the pigment */
+          const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
+          const sc=Math.max(side/iw,side/ih), dw=iw*sc, dh=ih*sc;
+          const dx=(side-dw)/2, dy=(side-dh)/2;
+          sctx.save();
+          sctx.beginPath(); sctx.rect(x,y,side,side); sctx.clip();
+          sctx.drawImage(img,x+dx,y+dy,dw,dh);
+          sctx.globalCompositeOperation="multiply";
+          const mg=sctx.createLinearGradient(x,y,x,y+side);
+          mg.addColorStop(0,mix(metalColor,"#ffffff",0.30));
+          mg.addColorStop(.5,mix(metalColor,"#ffffff",0.10));
+          mg.addColorStop(1,shade(metalColor,-6));
+          sctx.fillStyle=mg; sctx.fillRect(x,y,side,side);
+          sctx.globalCompositeOperation="screen";
+          sctx.globalAlpha=0.18;
+          sctx.drawImage(img,x+dx,y+dy,dw,dh);
+          sctx.restore();
+          ctx.drawImage(scratch,0,0);
+        }
+        glossSquare(ctx,x,y,side,1.15);
+      }
+
+      /* crisp border around the sample */
+      ctx.strokeStyle="rgba(255,255,255,.14)"; ctx.lineWidth=Math.max(1,side*0.004);
+      ctx.strokeRect(x,y,side,side);
+      return; /* done — no floor ripples/vignette for a swatch */
     }
+
+    /* ---- floor underlay (solid system only reaches here) ---- */
+    const floorGrad=ctx.createLinearGradient(0,horizon,0,H);
+    floorGrad.addColorStop(0,shade(solidColor,10));
+    floorGrad.addColorStop(.4,solidColor);
+    floorGrad.addColorStop(1,shade(solidColor,-8));
     ctx.fillStyle=floorGrad; floorPath(ctx,W,H,horizon); ctx.fill();
 
-    /* ===== SYSTEMS ===== */
-    if(system==="flake"){
-      const fh=H-horizon;
-      const denKey = density>=1 ? "full" : density>=0.75 ? "heavy" : density>=0.5 ? "medium" : "light";
-      const bConf = BLENDS[blend];
-      /* gray set has a real photo per density; colored blends reuse their full overlay */
-      const key = bConf.set==="gray" ? "flakes-gray-"+denKey : "flakes-"+bConf.set+"-full";
-      const img = TEX[key];
-      if(img){
-        sctx.clearRect(0,0,W,H);
-        tileFloor(sctx,W,H,horizon,img,150,null,0);
-        sctx.save();
-        sctx.globalCompositeOperation="destination-in";
-        sctx.beginPath(); floorPath(sctx,W,H,horizon); sctx.fillStyle="#fff"; sctx.fill();
-        sctx.restore();
-        ctx.drawImage(scratch,0,0);
-        if(density>=0.75){
-          const sRnd=mulberry(7);
-          for(let i=0;i<36;i++){
-            const y=horizon+sRnd()*fh, x=sRnd()*W;
-            ctx.fillStyle="rgba(255,255,255,"+(0.06+sRnd()*0.12)+")";
-            ctx.beginPath();ctx.arc(x,y,0.7+sRnd()*1.4,0,7);ctx.fill();
-          }
-        }
-      }
-      gloss(ctx,W,H,horizon,0.9);
-    }
-
-    if(system==="metallic"){
-      const fh=H-horizon;
-      if(TEX.ready.metallic){
-        sctx.clearRect(0,0,W,H);
-        tileFloor(sctx,W,H,horizon,TEX.metallic,250,null,0);
-        sctx.save();
-        sctx.globalCompositeOperation="multiply";
-        const mg=sctx.createLinearGradient(0,horizon,0,H);
-        mg.addColorStop(0,shade(metalColor,18));
-        mg.addColorStop(.5,mix(metalColor,"#ffffff",0.12));
-        mg.addColorStop(1,shade(metalColor,-4));
-        sctx.fillStyle=mg; floorPath(sctx,W,H,horizon); sctx.fill();
-        sctx.restore();
-        sctx.save();
-        sctx.globalCompositeOperation="screen";
-        sctx.globalAlpha=0.28;
-        tileFloor(sctx,W,H,horizon,TEX.metallic,250,null,0);
-        sctx.restore();
-        sctx.save();
-        sctx.globalCompositeOperation="destination-in";
-        sctx.beginPath(); floorPath(sctx,W,H,horizon); sctx.fillStyle="#fff"; sctx.fill();
-        sctx.restore();
-        ctx.drawImage(scratch,0,0);
-        const pRnd=mulberry(77);
-        for(let i=0;i<26;i++){
-          const y=horizon+pRnd()*fh, x=pRnd()*W;
-          ctx.fillStyle="rgba(255,255,255,"+(0.06+pRnd()*0.14)+")";
-          ctx.beginPath();ctx.arc(x,y,0.7+pRnd()*1.8,0,7);ctx.fill();
-        }
-      }
-      gloss(ctx,W,H,horizon,1.1);
-    }
-
+    /* ===== SOLID (room floor view — unchanged) ===== */
     if(system==="solid"){
       const fh=H-horizon;
       if(TEX.ready.solid){
@@ -1633,7 +1662,7 @@ void main(){
   function updateOut(){
     if(system==="flake"){
       blendName.textContent=BLENDS[blend].name+" on "+hexName(baseColor);
-      blendNote.textContent=(DENSITY_LABEL[density]||"Full broadcast")+" · gloss polyaspartic topcoat";
+      blendNote.textContent=(DENSITY_LABEL[density]||"Full broadcast")+" · "+SIZE_LABEL[size]+" · gloss polyaspartic topcoat";
     } else if(system==="metallic"){
       blendName.textContent="Metallic pour in "+hexName(metalColor);
       blendNote.textContent="Hand-blended metallic pigments · high-gloss finish";
@@ -1654,6 +1683,7 @@ void main(){
     system=btn.dataset.system;
     document.getElementById("flakeRow").style.display = system==="flake"?"block":"none";
     document.getElementById("densityRow").style.display = system==="flake"?"block":"none";
+    document.getElementById("sizeRow").style.display = system==="flake"?"block":"none";
     document.getElementById("metallicRow").style.display = system==="metallic"?"block":"none";
     document.getElementById("solidRow").style.display = system==="solid"?"block":"none";
     document.getElementById("baseRow").style.display = system==="flake"?"block":"none";
@@ -1684,7 +1714,14 @@ void main(){
   document.getElementById("densitySeg").addEventListener("click",e=>{
     const btn=e.target.closest("button"); if(!btn) return;
     [...e.currentTarget.children].forEach(b=>b.classList.toggle("active",b===btn));
-    density=parseFloat(btn.dataset.density); updateOut(); if(prefersReduced) draw(0);
+    density=btn.dataset.density; updateOut(); if(prefersReduced) draw(0);
+  });
+
+  /* flake size */
+  document.getElementById("sizeSeg").addEventListener("click",e=>{
+    const btn=e.target.closest("button"); if(!btn) return;
+    [...e.currentTarget.children].forEach(b=>b.classList.toggle("active",b===btn));
+    size=btn.dataset.size; updateOut(); if(prefersReduced) draw(0);
   });
 
   /* metallic color */
@@ -1718,7 +1755,7 @@ void main(){
     const finishSel=document.querySelector('[data-lab="finish"]');
     const msg=document.querySelector('[data-lab="message"]');
     let sel,txt;
-    if(system==="flake"){ sel="Chip / flake broadcast"; txt="Finish Lab: "+BLENDS[blend].name+" flake on a "+hexName(baseColor)+" base, "+(DENSITY_LABEL[density]||"full broadcast").toLowerCase()+"."; }
+    if(system==="flake"){ sel="Chip / flake broadcast"; txt="Finish Lab: "+BLENDS[blend].name+" flake on a "+hexName(baseColor)+" base, "+(DENSITY_LABEL[density]||"full broadcast").toLowerCase()+", "+SIZE_LABEL[size]+"."; }
     else if(system==="metallic"){ sel="Metallic epoxy"; txt="Finish Lab: metallic pour in "+hexName(metalColor)+" ("+metalColor+")."; }
     else { sel="Solid color"; txt="Finish Lab: solid color system in "+hexName(solidColor)+" ("+solidColor+")."; }
     [...finishSel.options].forEach(o=>{ if(o.text===sel) finishSel.value=o.value||o.text; });
