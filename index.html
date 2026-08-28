@@ -256,6 +256,7 @@ header.scrolled{
 @media (max-width:640px){
   .hero-proof{gap:18px}
   .hero-proof .proof{padding-right:0;margin-right:0;border:0}
+  .scroll-hint{display:none}
 }
 
 /* ---------- ticker ---------- */
@@ -1350,23 +1351,30 @@ void main(){
   /* density label map for output + quote prefill */
   const DENSITY_LABEL = {0.25:"Light broadcast",0.5:"Medium broadcast",0.75:"Heavy broadcast",1:"Full broadcast"};
 
+  /* blend -> flake texture + tint applied to the neutral swatch */
   const BLENDS = {
-    domino:    {name:"Domino",       tint:null},
-    smokey:    {name:"Smokey Ridge", tint:null},
-    riverbed:  {name:"Riverbed",     tint:null},
-    copperhead:{name:"Copperhead",   tint:null}
+    domino:    {name:"Domino",       tex:"gray",  tint:null},
+    smokey:    {name:"Smokey Ridge", tex:"gray",  tint:"#6b7683"},
+    riverbed:  {name:"Riverbed",     tex:"earth", tint:"#7c8a80"},
+    copperhead:{name:"Copperhead",   tex:"earth", tint:null}
   };
 
   /* --- texture images (real finish photos, tileable) --- */
-  const TEX = {flake:null, metallic:null, solid:null, ready:{flake:false,metallic:false,solid:false}};
+  const TEX = {ready:{}};
   function loadTex(key, src){
     const im = new Image();
     im.onload = ()=>{ TEX[key]=im; TEX.ready[key]=true; draw(performance.now()); };
     im.src = src;
   }
-  loadTex("flake","assets/textures/flake-full.webp");
-  loadTex("metallic","assets/textures/metallic-base.webp");
-  loadTex("solid","assets/textures/solid-base.webp");
+  /* flake: one real photo per density + per blend base */
+  loadTex("flake-gray-full",   "assets/textures/flake-full.webp");
+  loadTex("flake-gray-heavy",  "assets/textures/flake-heavy.webp");
+  loadTex("flake-gray-medium", "assets/textures/flake-medium.webp");
+  loadTex("flake-gray-light",  "assets/textures/flake-light.webp");
+  loadTex("flake-earth-full",  "assets/textures/flake-earth.webp");
+  loadTex("metallic",          "assets/textures/metallic-base.webp");
+  loadTex("metallicColor",     "assets/textures/metallic-color.webp");
+  loadTex("solid",             "assets/textures/solid-base.webp");
 
   /* offscreen scratch canvases */
   const scratch = document.createElement("canvas");
@@ -1491,26 +1499,40 @@ void main(){
 
     /* ===== SYSTEMS ===== */
     if(system==="flake"){
-      /* base color shows through in gaps; flake texture layered on top at density */
       const fh=H-horizon;
-      if(TEX.ready.flake){
-        /* clear scratch, tile flakes, mask to floor, then composite at density alpha */
+      /* pick the real photo for this density; earth blends reuse full at lower densities */
+      const denKey = density>=1 ? "full" : density>=0.75 ? "heavy" : density>=0.5 ? "medium" : "light";
+      const bConf = BLENDS[blend];
+      const texKey = "flake-"+bConf.tex+"-"+denKey;
+      const img = TEX[texKey] || TEX["flake-"+bConf.tex+"-full"] || TEX["flake-gray-"+denKey];
+      if(img && TEX.ready[texKey]!==false){
         sctx.clearRect(0,0,W,H);
+        tileFloor(sctx,W,H,horizon,img,150,null,0);
+        /* tint the neutral flake swatch toward the chosen base color so the
+           gray gaps between flakes pick up the base-coat color */
         sctx.save();
-        tileFloor(sctx,W,H,horizon,TEX.flake,150,null,0);
+        sctx.globalCompositeOperation="multiply";
+        const tg=sctx.createLinearGradient(0,horizon,0,H);
+        tg.addColorStop(0,mix(baseColor,"#ffffff",0.55));
+        tg.addColorStop(.5,mix(baseColor,"#ffffff",0.38));
+        tg.addColorStop(1,mix(baseColor,"#ffffff",0.5));
+        sctx.fillStyle=tg; floorPath(sctx,W,H,horizon); sctx.fill();
         sctx.restore();
+        /* optional blend tint (e.g. Smokey Ridge blue-gray) */
+        if(bConf.tint){
+          sctx.save();
+          sctx.globalCompositeOperation="multiply";
+          sctx.globalAlpha=0.45;
+          sctx.fillStyle=bConf.tint; floorPath(sctx,W,H,horizon); sctx.fill();
+          sctx.restore();
+        }
         /* clip to floor */
         sctx.save();
         sctx.globalCompositeOperation="destination-in";
         sctx.beginPath(); floorPath(sctx,W,H,horizon); sctx.fillStyle="#fff"; sctx.fill();
         sctx.restore();
-        /* density → alpha of flake layer. Light = sparse: reduce alpha + smaller tiles illusion via lower alpha */
-        const alpha = density>=1 ? 1 : density>=0.75 ? 0.82 : density>=0.5 ? 0.6 : 0.36;
-        ctx.save();
-        ctx.globalAlpha=alpha;
         ctx.drawImage(scratch,0,0);
-        ctx.restore();
-        /* extra sparkle on full/heavy broadcast */
+        /* sparkle on heavier broadcasts */
         if(density>=0.75){
           const sRnd=mulberry(7);
           for(let i=0;i<40;i++){
@@ -1526,27 +1548,32 @@ void main(){
     if(system==="metallic"){
       const fh=H-horizon;
       if(TEX.ready.metallic){
-        /* tint the neutral marble texture with the metallic pigment using
-           multiply (color) then screen a lighter pass for pearlescence */
         sctx.clearRect(0,0,W,H);
-        /* 1. tile the marble luminance */
-        tileFloor(sctx,W,H,horizon,TEX.metallic,260,null,0);
-        /* 2. multiply the metallic color over it so veins pick up pigment */
+        /* 1. marble luminance structure */
+        tileFloor(sctx,W,H,horizon,TEX.metallic,250,null,0);
+        /* 2. tint with the chosen metallic pigment */
         sctx.save();
         sctx.globalCompositeOperation="multiply";
-        /* two-tone metallic: base pigment + lighter highlight pigment */
         const mg=sctx.createLinearGradient(0,horizon,0,H);
-        mg.addColorStop(0,shade(metalColor,26));
-        mg.addColorStop(.5,mix(metalColor,"#ffffff",0.18));
-        mg.addColorStop(1,shade(metalColor,-10));
+        mg.addColorStop(0,shade(metalColor,30));
+        mg.addColorStop(.5,mix(metalColor,"#ffffff",0.22));
+        mg.addColorStop(1,shade(metalColor,-6));
         sctx.fillStyle=mg; floorPath(sctx,W,H,horizon); sctx.fill();
         sctx.restore();
-        /* 3. subtle color-dodge pass to restore metallic sheen in highlights */
+        /* 3. screen pass lifts the vein highlights back up (metallic shine) */
         sctx.save();
-        sctx.globalCompositeOperation="overlay";
-        sctx.globalAlpha=0.35;
-        tileFloor(sctx,W,H,horizon,TEX.metallic,260,null,0);
+        sctx.globalCompositeOperation="screen";
+        sctx.globalAlpha=0.4;
+        tileFloor(sctx,W,H,horizon,TEX.metallic,250,null,0);
         sctx.restore();
+        /* 4. real color metallic pour, softly blended for authentic variation */
+        if(TEX.ready.metallicColor){
+          sctx.save();
+          sctx.globalCompositeOperation="soft-light";
+          sctx.globalAlpha=0.5;
+          tileFloor(sctx,W,H,horizon,TEX.metallicColor,300,null,0);
+          sctx.restore();
+        }
         /* clip to floor */
         sctx.save();
         sctx.globalCompositeOperation="destination-in";
@@ -1555,13 +1582,13 @@ void main(){
         ctx.drawImage(scratch,0,0);
         /* pearlescent shimmer flecks */
         const pRnd=mulberry(77);
-        for(let i=0;i<36;i++){
+        for(let i=0;i<30;i++){
           const y=horizon+pRnd()*fh, x=pRnd()*W;
-          ctx.fillStyle="rgba(255,255,255,"+(0.10+pRnd()*0.22)+")";
-          ctx.beginPath();ctx.arc(x,y,0.8+pRnd()*2.2,0,7);ctx.fill();
+          ctx.fillStyle="rgba(255,255,255,"+(0.08+pRnd()*0.18)+")";
+          ctx.beginPath();ctx.arc(x,y,0.8+pRnd()*2,0,7);ctx.fill();
         }
       }
-      gloss(ctx,W,H,horizon,1.0);
+      gloss(ctx,W,H,horizon,1.1);
     }
 
     if(system==="solid"){
@@ -1618,6 +1645,11 @@ void main(){
 
   function loop(t){ raf=requestAnimationFrame(loop); if(running) draw(t); }
   new IntersectionObserver(es=>running=es[0].isIntersecting).observe(canvas);
+
+  /* always return to top on refresh / reload */
+  if("scrollRestoration" in history){ history.scrollRestoration="manual"; }
+  addEventListener("beforeunload",()=>scrollTo(0,0));
+  if(location.hash){ setTimeout(()=>{ scrollTo(0,0); history.replaceState(null,"",location.pathname+location.search); },0); }
 
   resize();
   if(prefersReduced){ draw(0); } else { raf=requestAnimationFrame(loop); }
