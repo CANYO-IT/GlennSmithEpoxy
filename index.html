@@ -380,6 +380,35 @@ header.scrolled{
 }
 @keyframes moltenflow{0%{background-position:0% 0}100%{background-position:100% 0}}
 .hero p{font-size:clamp(16.5px,2vw,19.5px);color:#b8c6d4;max-width:560px;margin-bottom:36px}
+
+/* ---------- launch offer band ---------- */
+.promo{background:var(--bg-2);border-top:1px solid var(--line);padding:0}
+.promo-inner{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 28px;
+  padding:26px 0;
+}
+.promo-text{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.promo-tag{
+  display:inline-flex;align-items:center;padding:5px 13px;border-radius:999px;
+  border:1px solid rgba(90,150,235,.4);background:rgba(90,150,235,.08);
+  font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--copper-hi);
+  white-space:nowrap;
+}
+.promo-copy{font-size:15.5px;color:var(--text);line-height:1.5}
+.promo-copy b{font-weight:600;color:var(--text)}
+.promo-copy .pct{
+  font-family:var(--font-head);color:var(--copper-hi);font-size:17px;letter-spacing:.01em;
+}
+.promo-copy .fine{display:block;font-size:12.5px;color:var(--muted);margin-top:3px}
+.promo-cta{
+  display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
+  font-family:var(--font-head);font-size:14px;letter-spacing:.04em;text-decoration:none;
+  color:var(--copper-hi);padding:11px 20px;border-radius:10px;
+  border:1px solid rgba(90,150,235,.4);transition:background .3s,border-color .3s,transform .3s var(--ease-out);
+}
+.promo-cta:hover{background:rgba(90,150,235,.12);border-color:rgba(90,150,235,.6);transform:translateY(-1px)}
+.promo-cta svg{width:15px;height:15px}
+@media (max-width:640px){.promo-inner{flex-direction:column;align-items:flex-start;gap:16px}}
 .hero-actions{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:56px}
 .hero-proof{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line);padding-top:26px}
 .hero-proof .proof{padding-right:34px;margin-right:34px;border-right:1px solid var(--line)}
@@ -828,6 +857,22 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
     </div>
   </div>
   <a class="scroll-hint" href="#systems" aria-label="Scroll to systems"><span class="wheel"></span>Scroll</a>
+</section>
+
+<!-- ======================= LAUNCH OFFER ======================= -->
+<section class="promo" aria-label="Current offer">
+  <div class="wrap promo-inner">
+    <div class="promo-text">
+      <span class="promo-tag">Launch Offer</span>
+      <p class="promo-copy">
+        <span class="pct">20% below standard market rate</span> <b>on every system, this month.</b>
+        <span class="fine">Locked in with your free, no-pressure quote — no obligation to book.</span>
+      </p>
+    </div>
+    <a class="promo-cta" href="#quote">Get the launch rate
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
 </section>
 
 <!-- ======================= TICKER ======================= -->
