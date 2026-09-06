@@ -574,13 +574,35 @@ header.scrolled{
 }
 .swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:10px}
 .color-pick-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+/* color picker — clearly an interactive control, not a static tile */
 input[type="color"]{
   -webkit-appearance:none;appearance:none;width:56px;height:56px;padding:0;border:none;border-radius:14px;
-  background:none;cursor:pointer;flex:none;
+  background:none;cursor:pointer;flex:none;position:relative;
+  transition:transform .25s var(--ease-out),filter .25s;
 }
+input[type="color"]:hover{transform:translateY(-2px);filter:brightness(1.12)}
+input[type="color"]:active{transform:translateY(0) scale(.97)}
+input[type="color"]:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
-input[type="color"]::-webkit-color-swatch{border:1px solid var(--line-hi);border-radius:14px}
-input[type="color"]::-moz-color-swatch{border:1px solid var(--line-hi);border-radius:14px}
+input[type="color"]::-webkit-color-swatch{
+  border:1.5px solid var(--line-hi);border-radius:14px;
+  box-shadow:0 4px 14px -4px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.18);
+}
+input[type="color"]::-moz-color-swatch{
+  border:1.5px solid var(--line-hi);border-radius:14px;
+  box-shadow:0 4px 14px -4px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.18);
+}
+/* edit badge in the corner = "click to change" affordance */
+.cpick{position:relative;display:inline-block;flex:none;line-height:0}
+.cpick input[type="color"]{display:block}
+.cpick-badge{
+  position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;
+  background:var(--cyan);display:grid;place-items:center;pointer-events:none;
+  border:2px solid var(--bg-2);box-shadow:0 2px 8px rgba(0,0,0,.5);
+  transition:transform .25s var(--ease-out);
+}
+.cpick:hover .cpick-badge{transform:scale(1.12) rotate(-8deg)}
+.cpick-badge svg{width:11px;height:11px}
 .color-presets{display:flex;gap:8px;flex-wrap:wrap}
 .cpreset,.mpreset,.spreset{
   width:34px;height:34px;border-radius:50%;border:2px solid var(--line-hi);cursor:pointer;padding:0;flex:none;
@@ -1046,7 +1068,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
         <div class="lab-field" id="baseRow">
           <label>Base coat color <span style="text-transform:none;letter-spacing:0;opacity:.7">(shows through the flake)</span></label>
           <div class="color-pick-row">
-            <input type="color" id="baseColor" value="#2b2b2b" aria-label="Pick custom base color">
+            <span class="cpick"><input type="color" id="baseColor" value="#2b2b2b" aria-label="Pick custom base color"><span class="cpick-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0f14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span></span>
             <div class="color-presets" id="basePresets">
               <button type="button" class="cpreset active" data-color="#2b2b2b" style="--c:#2b2b2b" aria-label="Black"><span></span></button>
               <button type="button" class="cpreset" data-color="#e9e6df" style="--c:#e9e6df" aria-label="White"><span></span></button>
@@ -1088,7 +1110,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
         <div class="lab-field" id="metallicRow" style="display:none">
           <label id="lbl-metallic">Metallic pigment</label>
           <div class="color-pick-row">
-            <input type="color" id="metalColor" value="#1e56b8" aria-label="Pick metallic pigment color">
+            <span class="cpick"><input type="color" id="metalColor" value="#1e56b8" aria-label="Pick metallic pigment color"><span class="cpick-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0f14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span></span>
             <div class="color-presets" id="metalPresets">
               <button type="button" class="mpreset active" data-color="#1e56b8" style="--c:#1e56b8" aria-label="Sapphire"><span></span></button>
               <button type="button" class="mpreset" data-color="#c47f2a" style="--c:#c47f2a" aria-label="Copper"><span></span></button>
@@ -1102,7 +1124,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
         <div class="lab-field" id="solidRow" style="display:none">
           <label id="lbl-solid">Solid color</label>
           <div class="color-pick-row">
-            <input type="color" id="solidColor" value="#8a8f96" aria-label="Pick solid floor color">
+            <span class="cpick"><input type="color" id="solidColor" value="#8a8f96" aria-label="Pick solid floor color"><span class="cpick-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0f14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span></span>
             <div class="color-presets" id="solidPresets">
               <button type="button" class="spreset active" data-color="#8a8f96" style="--c:#8a8f96" aria-label="Medium Gray"><span></span></button>
               <button type="button" class="spreset" data-color="#6f7276" style="--c:#6f7276" aria-label="Dark Gray"><span></span></button>
