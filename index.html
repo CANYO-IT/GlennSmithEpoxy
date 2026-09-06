@@ -582,13 +582,13 @@ input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
 input[type="color"]::-webkit-color-swatch{border:1px solid var(--line-hi);border-radius:14px}
 input[type="color"]::-moz-color-swatch{border:1px solid var(--line-hi);border-radius:14px}
 .color-presets{display:flex;gap:8px;flex-wrap:wrap}
-.cpreset,.mpreset{
+.cpreset,.mpreset,.spreset{
   width:34px;height:34px;border-radius:50%;border:2px solid var(--line-hi);cursor:pointer;padding:0;flex:none;
   background:var(--c);transition:transform .3s var(--ease-out),border-color .3s,box-shadow .3s;
 }
-.cpreset span,.mpreset span{display:block;width:100%;height:100%;border-radius:50%;background:var(--c)}
-.cpreset:hover,.mpreset:hover{transform:scale(1.15)}
-.cpreset.active,.mpreset.active{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.25)}
+.cpreset span,.mpreset span,.spreset span{display:block;width:100%;height:100%;border-radius:50%;background:var(--c)}
+.cpreset:hover,.mpreset:hover,.spreset:hover{transform:scale(1.15)}
+.cpreset.active,.mpreset.active,.spreset.active{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.25)}
 .color-hex{font-family:var(--font-head);font-weight:400;font-size:13px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-left:auto}
 .swatch{
   position:relative;border-radius:12px;height:64px;cursor:pointer;border:1px solid var(--line);
@@ -1634,8 +1634,8 @@ void main(){
     for(const d of DENSITIES)
       for(const z of SIZES)
         loadTex(b+"-"+d+"-"+z, "assets/textures/"+b+"-"+d+"-"+z+".webp");
-  loadTex("metallic",           "assets/textures/metallic-clean.webp");
-  loadTex("metallicColor",      "assets/textures/metallic-clean.webp");
+  loadTex("metallic",           "assets/textures/metallic-new.webp");
+  loadTex("metallicColor",      "assets/textures/metallic-new.webp");
   loadTex("solid",              "assets/textures/solid-base.webp");
 
   /* offscreen scratch canvases */
@@ -1652,6 +1652,52 @@ void main(){
   function hex2rgb(h){ h=h.replace("#",""); return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]; }
   function mix(c1,c2,t){ const a=hex2rgb(c1),b=hex2rgb(c2); return "#"+[0,1,2].map(i=>Math.round(a[i]*(1-t)+b[i]*t).toString(16).padStart(2,"0")).join(""); }
   function shade(hex,amt){ const c=hex2rgb(hex); return "#"+c.map(v=>Math.max(0,Math.min(255,v+amt)).toString(16).padStart(2,"0")).join(""); }
+
+  /* Build a 256-step luminosity ramp for a pigment: black -> deep shade -> pure hue -> light tint -> white.
+     Maps a grayscale marble's brightness onto the pigment's REAL color (not a hue overlay). */
+  function buildColorRamp(hex){
+    const base=hex2rgb(hex);
+    const ramp=new Array(256);
+    for(let i=0;i<256;i++){
+      const t=i/255;
+      let r,g,b;
+      if(t<0.5){ // dark half: black -> pure hue
+        const k=t/0.5;
+        r=base[0]*k; g=base[1]*k; b=base[2]*k;
+      } else {   // light half: pure hue -> white
+        const k=(t-0.5)/0.5;
+        r=base[0]+(255-base[0])*k; g=base[1]+(255-base[1])*k; b=base[2]+(255-base[2])*k;
+      }
+      ramp[i]=(r<<16)|(g<<8)|b;
+    }
+    return ramp;
+  }
+  /* Cache ramps per color so we don't rebuild every frame */
+  const rampCache={};
+  function rampFor(hex){ if(!rampCache[hex]) rampCache[hex]=buildColorRamp(hex); return rampCache[hex]; }
+
+  /* --- metallic colorize cache + worker --- */
+  const metalCache={key:null,img:null};
+  function colorizeMetal(img, side, hex){
+    const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
+    /* cover-fit source into a square offscreen at target res (cap for perf) */
+    const S=Math.min(720, Math.max(2, Math.round(side)));
+    const off=document.createElement("canvas"); off.width=S; off.height=S;
+    const oc=off.getContext("2d",{willReadFrequently:true});
+    const sc=Math.max(S/iw,S/ih), dw=iw*sc, dh=ih*sc;
+    oc.drawImage(img,(S-dw)/2,(S-dh)/2,dw,dh);
+    let frame;
+    try{ frame=oc.getImageData(0,0,S,S); }catch(e){ return; }
+    const d=frame.data, ramp=rampFor(hex);
+    for(let p=0;p<d.length;p+=4){
+      /* perceived luminance of the marble pixel */
+      const lum=(d[p]*0.299 + d[p+1]*0.587 + d[p+2]*0.114)|0;
+      const c=ramp[lum];
+      d[p]=(c>>16)&255; d[p+1]=(c>>8)&255; d[p+2]=c&255; d[p+3]=255;
+    }
+    oc.putImageData(frame,0,0);
+    metalCache.img=off;
+  }
   function mulberry(seed){ return function(){ seed=(seed*16807)%2147483647; return seed/2147483647; }; }
 
   function resize(){
@@ -1767,13 +1813,13 @@ void main(){
     ctx.fillStyle="rgba(0,0,0,.35)"; ctx.fillRect(0,horizon-4,W,4);
 
     /* ===== FLAKE & METALLIC -> single square sample (one tile, no seams) ===== */
-    if(system==="flake" || system==="metallic"){
+    if(system==="flake" || system==="metallic" || system==="solid"){
       const side=Math.min(W,H)*0.80;
       const x=(W-side)/2, y=(H-side)/2;
       /* soft shadow + dark surround so the swatch reads as a sample */
       ctx.save();
       ctx.shadowColor="rgba(0,0,0,.55)"; ctx.shadowBlur=Math.max(18,side*0.06); ctx.shadowOffsetY=side*0.03;
-      ctx.fillStyle=system==="flake"?baseColor:shade(metalColor,-10);
+      ctx.fillStyle=system==="flake"?baseColor:(system==="solid"?solidColor:shade(metalColor,-10));
       ctx.fillRect(x,y,side,side);
       ctx.restore();
 
@@ -1785,76 +1831,52 @@ void main(){
           ctx.restore();
         }
         glossSquare(ctx,x,y,side,0.9);
-      } else { /* metallic */
+      } else if(system==="metallic"){ /* metallic — true color-adaptive marble */
         const img=TEX.metallic;
         if(img && TEX.ready.metallic){
+          /* colorize the marble onto the pigment, cached per color+size */
+          const key=metalColor+"@"+Math.round(side);
+          if(!metalCache.img || metalCache.key!==key){
+            colorizeMetal(img, side, metalColor);
+            metalCache.key=key;
+          }
+          if(metalCache.img){
+            ctx.save(); ctx.beginPath(); ctx.rect(x,y,side,side); ctx.clip();
+            ctx.drawImage(metalCache.img, x, y, side, side);
+            ctx.restore();
+          }
+        }
+        glossSquare(ctx,x,y,side,1.15);
+      } else if(system==="solid"){ /* solid — square swatch, subtle trowel texture, high gloss */
+        if(TEX.ready.solid){
           sctx.clearRect(0,0,W,H);
-          /* draw texture once into scratch, tinted toward the pigment */
+          const img=TEX.solid;
           const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
           const sc=Math.max(side/iw,side/ih), dw=iw*sc, dh=ih*sc;
           const dx=(side-dw)/2, dy=(side-dh)/2;
           sctx.save();
           sctx.beginPath(); sctx.rect(x,y,side,side); sctx.clip();
           sctx.drawImage(img,x+dx,y+dy,dw,dh);
+          /* tint the trowel texture to the chosen color (luminosity-friendly multiply) */
           sctx.globalCompositeOperation="multiply";
-          const mg=sctx.createLinearGradient(x,y,x,y+side);
-          mg.addColorStop(0,mix(metalColor,"#ffffff",0.30));
-          mg.addColorStop(.5,mix(metalColor,"#ffffff",0.10));
-          mg.addColorStop(1,shade(metalColor,-6));
-          sctx.fillStyle=mg; sctx.fillRect(x,y,side,side);
-          sctx.globalCompositeOperation="screen";
-          sctx.globalAlpha=0.18;
-          sctx.drawImage(img,x+dx,y+dy,dw,dh);
+          const sg=sctx.createLinearGradient(x,y,x,y+side);
+          sg.addColorStop(0,mix(solidColor,"#ffffff",0.28));
+          sg.addColorStop(.5,solidColor);
+          sg.addColorStop(1,shade(solidColor,-8));
+          sctx.fillStyle=sg; sctx.fillRect(x,y,side,side);
           sctx.restore();
-          ctx.drawImage(scratch,0,0);
+          ctx.save(); ctx.globalAlpha=0.9; ctx.drawImage(scratch,0,0); ctx.restore();
+        } else {
+          /* fallback: flat color while texture loads */
+          ctx.save(); ctx.fillStyle=solidColor; ctx.fillRect(x,y,side,side); ctx.restore();
         }
-        glossSquare(ctx,x,y,side,1.15);
+        glossSquare(ctx,x,y,side,1.35);
       }
 
       /* crisp border around the sample */
       ctx.strokeStyle="rgba(255,255,255,.14)"; ctx.lineWidth=Math.max(1,side*0.004);
       ctx.strokeRect(x,y,side,side);
       return; /* done — no floor ripples/vignette for a swatch */
-    }
-
-    /* ---- floor underlay (solid system only reaches here) ---- */
-    const floorGrad=ctx.createLinearGradient(0,horizon,0,H);
-    floorGrad.addColorStop(0,shade(solidColor,10));
-    floorGrad.addColorStop(.4,solidColor);
-    floorGrad.addColorStop(1,shade(solidColor,-8));
-    ctx.fillStyle=floorGrad; floorPath(ctx,W,H,horizon); ctx.fill();
-
-    /* ===== SOLID (room floor view — unchanged) ===== */
-    if(system==="solid"){
-      const fh=H-horizon;
-      if(TEX.ready.solid){
-        /* subtle trowel texture from the real swatch, tinted to chosen color */
-        sctx.clearRect(0,0,W,H);
-        tileFloor(sctx,W,H,horizon,TEX.solid,300,null,0);
-        sctx.save();
-        sctx.globalCompositeOperation="multiply";
-        const sg=sctx.createLinearGradient(0,horizon,0,H);
-        sg.addColorStop(0,shade(solidColor,24));
-        sg.addColorStop(.5,solidColor);
-        sg.addColorStop(1,shade(solidColor,-6));
-        sctx.fillStyle=sg; floorPath(sctx,W,H,horizon); sctx.fill();
-        sctx.restore();
-        sctx.save();
-        sctx.globalCompositeOperation="destination-in";
-        sctx.beginPath(); floorPath(sctx,W,H,horizon); sctx.fillStyle="#fff"; sctx.fill();
-        sctx.restore();
-        ctx.save(); ctx.globalAlpha=0.55; ctx.drawImage(scratch,0,0); ctx.restore();
-      }
-      /* high-gloss reflection — solids are the glossiest */
-      gloss(ctx,W,H,horizon,1.35);
-      /* crisp window reflection block */
-      ctx.save();
-      ctx.globalAlpha=0.12;
-      ctx.fillStyle="#fff";
-      ctx.beginPath();
-      ctx.moveTo(W*.10,H); ctx.lineTo(W*.22,horizon); ctx.lineTo(W*.36,horizon); ctx.lineTo(W*.20,H); ctx.closePath();
-      ctx.fill();
-      ctx.restore();
     }
 
     /* ---- floor edge vignette ---- */
