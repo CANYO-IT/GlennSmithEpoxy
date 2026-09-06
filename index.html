@@ -1068,10 +1068,10 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
         <div class="lab-field" id="baseRow">
           <label>Base coat color <span style="text-transform:none;letter-spacing:0;opacity:.7">(shows through the flake)</span></label>
           <div class="color-pick-row">
-            <span class="cpick"><input type="color" id="baseColor" value="#2b2b2b" aria-label="Pick custom base color"><span class="cpick-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0f14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span></span>
             <div class="color-presets" id="basePresets">
               <button type="button" class="cpreset active" data-color="#2b2b2b" style="--c:#2b2b2b" aria-label="Black"><span></span></button>
               <button type="button" class="cpreset" data-color="#e9e6df" style="--c:#e9e6df" aria-label="White"><span></span></button>
+              <button type="button" class="cpreset" data-color="#d8c9ae" style="--c:#d8c9ae" aria-label="Beige"><span></span></button>
               <button type="button" class="cpreset" data-color="#c2ad8c" style="--c:#c2ad8c" aria-label="Tan"><span></span></button>
             </div>
             <span class="color-hex" id="baseHex">#2b2b2b</span>
@@ -1976,14 +1976,14 @@ void main(){
   const baseIn=document.getElementById("baseColor");
   const baseHex=document.getElementById("baseHex");
   function setBase(c,btn){
-    baseColor=c; baseIn.value=c; baseHex.textContent=c;
+    baseColor=c; if(baseIn) baseIn.value=c; baseHex.textContent=c;
     document.querySelectorAll("#basePresets .cpreset").forEach(b=>b.classList.toggle("active",b===btn));
     updateOut(); if(prefersReduced) draw(0);
   }
   document.getElementById("basePresets").addEventListener("click",e=>{
     const btn=e.target.closest("button"); if(!btn) return; setBase(btn.dataset.color,btn);
   });
-  baseIn.addEventListener("input",()=>setBase(baseIn.value,null));
+  if(baseIn) baseIn.addEventListener("input",()=>setBase(baseIn.value,null));
 
   /* blend swatches */
   document.getElementById("blendSwatches").addEventListener("click",e=>{
