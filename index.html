@@ -604,13 +604,13 @@ input[type="color"]::-moz-color-swatch{
 .cpick:hover .cpick-badge{transform:scale(1.12) rotate(-8deg)}
 .cpick-badge svg{width:11px;height:11px}
 .color-presets{display:flex;gap:8px;flex-wrap:wrap}
-.cpreset,.mpreset,.spreset{
+.cpreset,.mpreset,.spreset,.mbpreset,.mhpreset{
   width:34px;height:34px;border-radius:50%;border:2px solid var(--line-hi);cursor:pointer;padding:0;flex:none;
   background:var(--c);transition:transform .3s var(--ease-out),border-color .3s,box-shadow .3s;
 }
-.cpreset span,.mpreset span,.spreset span{display:block;width:100%;height:100%;border-radius:50%;background:var(--c)}
-.cpreset:hover,.mpreset:hover,.spreset:hover{transform:scale(1.15)}
-.cpreset.active,.mpreset.active,.spreset.active{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.25)}
+.cpreset span,.mpreset span,.spreset span,.mbpreset span,.mhpreset span{display:block;width:100%;height:100%;border-radius:50%;background:var(--c)}
+.cpreset:hover,.mpreset:hover,.spreset:hover,.mbpreset:hover,.mhpreset:hover{transform:scale(1.15)}
+.cpreset.active,.mpreset.active,.spreset.active,.mbpreset.active,.mhpreset.active{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.25)}
 .color-hex{font-family:var(--font-head);font-weight:400;font-size:13px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-left:auto}
 .swatch{
   position:relative;border-radius:12px;height:64px;cursor:pointer;border:1px solid var(--line);
@@ -1108,7 +1108,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
         </div>
 
         <div class="lab-field" id="metallicRow" style="display:none">
-          <label id="lbl-metallic">Metallic pigment</label>
+          <label id="lbl-metallic">Metallic pigment <span style="text-transform:none;letter-spacing:0;opacity:.7">(the mid-tone veins)</span></label>
           <div class="color-pick-row">
             <span class="cpick"><input type="color" id="metalColor" value="#1e56b8" aria-label="Pick metallic pigment color"><span class="cpick-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0f14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span></span>
             <div class="color-presets" id="metalPresets">
@@ -1118,6 +1118,36 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
               <button type="button" class="mpreset" data-color="#0f6b5e" style="--c:#0f6b5e" aria-label="Emerald"><span></span></button>
             </div>
             <span class="color-hex" id="metalHex">#1e56b8</span>
+          </div>
+        </div>
+
+        <div class="lab-field" id="metallicBaseRow" style="display:none">
+          <label id="lbl-metallic-base">Metallic base <span style="text-transform:none;letter-spacing:0;opacity:.7">(the dark swirls)</span></label>
+          <div class="color-pick-row">
+            <span class="cpick"><input type="color" id="metalBase" value="#101114" aria-label="Pick metallic base color"><span class="cpick-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0f14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span></span>
+            <div class="color-presets" id="metalBasePresets">
+              <button type="button" class="mbpreset active" data-color="#101114" style="--c:#101114" aria-label="Onyx"><span></span></button>
+              <button type="button" class="mbpreset" data-color="#3a3f45" style="--c:#3a3f45" aria-label="Charcoal"><span></span></button>
+              <button type="button" class="mbpreset" data-color="#4a3423" style="--c:#4a3423" aria-label="Espresso"><span></span></button>
+              <button type="button" class="mbpreset" data-color="#232a44" style="--c:#232a44" aria-label="Midnight"><span></span></button>
+              <button type="button" class="mbpreset" data-color="#3d2b33" style="--c:#3d2b33" aria-label="Merlot"><span></span></button>
+              <button type="button" class="mbpreset" data-color="#26332b" style="--c:#26332b" aria-label="Forest"><span></span></button>
+            </div>
+            <span class="color-hex" id="metalBaseHex">#101114</span>
+          </div>
+        </div>
+
+        <div class="lab-field" id="metallicHiRow" style="display:none">
+          <label id="lbl-metallic-hi">Metallic highlight <span style="text-transform:none;letter-spacing:0;opacity:.7">(the light / white areas)</span></label>
+          <div class="color-pick-row">
+            <span class="cpick"><input type="color" id="metalHi" value="#f5f5f5" aria-label="Pick metallic highlight color"><span class="cpick-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0f14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span></span>
+            <div class="color-presets" id="metalHiPresets">
+              <button type="button" class="mhpreset active" data-color="#f5f5f5" style="--c:#f5f5f5" aria-label="White"><span></span></button>
+              <button type="button" class="mhpreset" data-color="#e8e0d0" style="--c:#e8e0d0" aria-label="Pearl"><span></span></button>
+              <button type="button" class="mhpreset" data-color="#d8c9ae" style="--c:#d8c9ae" aria-label="Champagne"><span></span></button>
+              <button type="button" class="mhpreset" data-color="#c9ccd1" style="--c:#c9ccd1" aria-label="Silver"><span></span></button>
+            </div>
+            <span class="color-hex" id="metalHiHex">#f5f5f5</span>
           </div>
         </div>
 
@@ -1626,6 +1656,8 @@ void main(){
   let density = "full";       /* light | medium | heavy | full */
   let size = "quarter";       /* quarter (1/4") | eighth (1/8") */
   let metalColor = "#1e56b8";
+  let metalBase  = "#101114";
+  let metalHi    = "#f5f5f5";
   let solidColor = "#8a8f96";
 
   /* density label map for output + quote prefill */
@@ -1677,30 +1709,30 @@ void main(){
 
   /* Build a 256-step luminosity ramp for a pigment: black -> deep shade -> pure hue -> light tint -> white.
      Maps a grayscale marble's brightness onto the pigment's REAL color (not a hue overlay). */
-  function buildColorRamp(hex){
-    const base=hex2rgb(hex);
+  function buildColorRamp(baseHex, pigmentHex, hiHex){
+    const dark=hex2rgb(baseHex), base=hex2rgb(pigmentHex), hi=hex2rgb(hiHex);
     const ramp=new Array(256);
     for(let i=0;i<256;i++){
       const t=i/255;
       let r,g,b;
-      if(t<0.5){ // dark half: black -> pure hue
+      if(t<0.5){ // dark half: base tone -> pure pigment
         const k=t/0.5;
-        r=base[0]*k; g=base[1]*k; b=base[2]*k;
-      } else {   // light half: pure hue -> white
+        r=dark[0]+(base[0]-dark[0])*k; g=dark[1]+(base[1]-dark[1])*k; b=dark[2]+(base[2]-dark[2])*k;
+      } else {   // light half: pure pigment -> highlight
         const k=(t-0.5)/0.5;
-        r=base[0]+(255-base[0])*k; g=base[1]+(255-base[1])*k; b=base[2]+(255-base[2])*k;
+        r=base[0]+(hi[0]-base[0])*k; g=base[1]+(hi[1]-base[1])*k; b=base[2]+(hi[2]-base[2])*k;
       }
       ramp[i]=(r<<16)|(g<<8)|b;
     }
     return ramp;
   }
-  /* Cache ramps per color so we don't rebuild every frame */
+  /* Cache ramps per color triple so we don't rebuild every frame */
   const rampCache={};
-  function rampFor(hex){ if(!rampCache[hex]) rampCache[hex]=buildColorRamp(hex); return rampCache[hex]; }
+  function rampFor(baseHex,pigmentHex,hiHex){ const k=baseHex+"|"+pigmentHex+"|"+hiHex; if(!rampCache[k]) rampCache[k]=buildColorRamp(baseHex,pigmentHex,hiHex); return rampCache[k]; }
 
   /* --- metallic colorize cache + worker --- */
   const metalCache={key:null,img:null};
-  function colorizeMetal(img, side, hex){
+  function colorizeMetal(img, side, baseHex, pigmentHex, hiHex){
     const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
     /* cover-fit source into a square offscreen at target res (cap for perf) */
     const S=Math.min(720, Math.max(2, Math.round(side)));
@@ -1710,7 +1742,7 @@ void main(){
     oc.drawImage(img,(S-dw)/2,(S-dh)/2,dw,dh);
     let frame;
     try{ frame=oc.getImageData(0,0,S,S); }catch(e){ return; }
-    const d=frame.data, ramp=rampFor(hex);
+    const d=frame.data, ramp=rampFor(baseHex,pigmentHex,hiHex);
     for(let p=0;p<d.length;p+=4){
       /* perceived luminance of the marble pixel */
       const lum=(d[p]*0.299 + d[p+1]*0.587 + d[p+2]*0.114)|0;
@@ -1857,9 +1889,9 @@ void main(){
         const img=TEX.metallic;
         if(img && TEX.ready.metallic){
           /* colorize the marble onto the pigment, cached per color+size */
-          const key=metalColor+"@"+Math.round(side);
+          const key=metalBase+"|"+metalColor+"|"+metalHi+"@"+Math.round(side);
           if(!metalCache.img || metalCache.key!==key){
-            colorizeMetal(img, side, metalColor);
+            colorizeMetal(img, side, metalBase, metalColor, metalHi);
             metalCache.key=key;
           }
           if(metalCache.img){
@@ -1946,7 +1978,7 @@ void main(){
       blendName.textContent=BLENDS[blend].name+" on "+hexName(baseColor);
       blendNote.textContent=(DENSITY_LABEL[density]||"Full broadcast")+" · "+SIZE_LABEL[size]+" · gloss polyaspartic topcoat";
     } else if(system==="metallic"){
-      blendName.textContent="Metallic pour in "+hexName(metalColor);
+      blendName.textContent=hexName(metalHi)+" / "+hexName(metalColor)+" on "+hexName(metalBase);
       blendNote.textContent="Hand-blended metallic pigments · high-gloss finish";
     } else {
       blendName.textContent="Solid color — "+hexName(solidColor);
@@ -1954,7 +1986,7 @@ void main(){
     }
   }
   function hexName(hex){
-    const map={"#2b2b2b":"Black","#e9e6df":"White","#c2ad8c":"Tan","#1e56b8":"Sapphire","#c47f2a":"Copper","#8a8f96":"Pewter","#0f6b5e":"Emerald"};
+    const map={"#2b2b2b":"Black","#e9e6df":"White","#d8c9ae":"Beige","#c2ad8c":"Tan","#1e56b8":"Sapphire","#c47f2a":"Copper","#8a8f96":"Pewter","#0f6b5e":"Emerald","#101114":"Onyx","#3a3f45":"Charcoal","#4a3423":"Espresso","#232a44":"Midnight","#3d2b33":"Merlot","#26332b":"Forest","#f5f5f5":"White","#e8e0d0":"Pearl","#c9ccd1":"Silver"};
     return map[hex.toLowerCase()]||hex;
   }
 
@@ -1967,6 +1999,8 @@ void main(){
     document.getElementById("densityRow").style.display = system==="flake"?"block":"none";
     document.getElementById("sizeRow").style.display = system==="flake"?"block":"none";
     document.getElementById("metallicRow").style.display = system==="metallic"?"block":"none";
+    document.getElementById("metallicBaseRow").style.display = system==="metallic"?"block":"none";
+    document.getElementById("metallicHiRow").style.display = system==="metallic"?"block":"none";
     document.getElementById("solidRow").style.display = system==="solid"?"block":"none";
     document.getElementById("baseRow").style.display = system==="flake"?"block":"none";
     updateOut(); if(prefersReduced) draw(0);
@@ -2019,6 +2053,32 @@ void main(){
   });
   metalIn.addEventListener("input",()=>setMetal(metalIn.value,null));
 
+  /* metallic base tone */
+  const metalBaseIn=document.getElementById("metalBase");
+  const metalBaseHex=document.getElementById("metalBaseHex");
+  function setMetalBase(c,btn){
+    metalBase=c; metalBaseIn.value=c; metalBaseHex.textContent=c;
+    document.querySelectorAll("#metalBasePresets .mbpreset").forEach(b=>b.classList.toggle("active",b===btn));
+    updateOut(); if(prefersReduced) draw(0);
+  }
+  document.getElementById("metalBasePresets").addEventListener("click",e=>{
+    const btn=e.target.closest("button"); if(!btn) return; setMetalBase(btn.dataset.color,btn);
+  });
+  metalBaseIn.addEventListener("input",()=>setMetalBase(metalBaseIn.value,null));
+
+  /* metallic highlight */
+  const metalHiIn=document.getElementById("metalHi");
+  const metalHiHex=document.getElementById("metalHiHex");
+  function setMetalHi(c,btn){
+    metalHi=c; metalHiIn.value=c; metalHiHex.textContent=c;
+    document.querySelectorAll("#metalHiPresets .mhpreset").forEach(b=>b.classList.toggle("active",b===btn));
+    updateOut(); if(prefersReduced) draw(0);
+  }
+  document.getElementById("metalHiPresets").addEventListener("click",e=>{
+    const btn=e.target.closest("button"); if(!btn) return; setMetalHi(btn.dataset.color,btn);
+  });
+  metalHiIn.addEventListener("input",()=>setMetalHi(metalHiIn.value,null));
+
   /* solid color */
   const solidIn=document.getElementById("solidColor");
   const solidHex=document.getElementById("solidHex");
@@ -2038,7 +2098,7 @@ void main(){
     const msg=document.querySelector('[data-lab="message"]');
     let sel,txt;
     if(system==="flake"){ sel="Chip / flake broadcast"; txt="Finish Lab: "+BLENDS[blend].name+" flake on a "+hexName(baseColor)+" base, "+(DENSITY_LABEL[density]||"full broadcast").toLowerCase()+", "+SIZE_LABEL[size]+"."; }
-    else if(system==="metallic"){ sel="Metallic epoxy"; txt="Finish Lab: metallic pour in "+hexName(metalColor)+" ("+metalColor+")."; }
+    else if(system==="metallic"){ sel="Metallic epoxy"; txt="Finish Lab: metallic pour — "+hexName(metalHi)+" ("+metalHi+") highlights, "+hexName(metalColor)+" ("+metalColor+") veins, on a "+hexName(metalBase)+" ("+metalBase+") base."; }
     else { sel="Solid color"; txt="Finish Lab: solid color system in "+hexName(solidColor)+" ("+solidColor+")."; }
     [...finishSel.options].forEach(o=>{ if(o.text===sel) finishSel.value=o.value||o.text; });
     finishSel.selectedIndex=[...finishSel.options].findIndex(o=>o.text===sel);
