@@ -612,6 +612,18 @@ input[type="color"]::-moz-color-swatch{
 .cpreset:hover,.mpreset:hover,.spreset:hover,.mbpreset:hover,.mhpreset:hover{transform:scale(1.15)}
 .cpreset.active,.mpreset.active,.spreset.active,.mbpreset.active,.mhpreset.active{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.25)}
 .color-hex{font-family:var(--font-head);font-weight:400;font-size:13px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-left:auto}
+
+.polish-help{margin-top:12px;color:var(--muted);font-size:13.5px;line-height:1.65}
+.finish-examples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.finish-example{position:relative;min-height:112px;padding:16px;border-radius:14px;border:1px solid var(--line);background:var(--panel);cursor:pointer;text-align:left;color:var(--text);overflow:hidden;transition:transform .3s var(--ease-out),border-color .3s,box-shadow .3s}
+.finish-example::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.16),transparent 38%,rgba(0,0,0,.2));opacity:var(--sheen,.35);pointer-events:none}
+.finish-example::after{content:"";position:absolute;top:-30%;right:-25%;width:60%;height:160%;background:linear-gradient(90deg,transparent,rgba(255,255,255,var(--shine,.14)),transparent);transform:rotate(22deg);pointer-events:none}
+.finish-example:hover{transform:translateY(-2px);border-color:var(--line-hi)}
+.finish-example.active{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan),0 12px 28px -14px var(--glow-cyan)}
+.finish-example strong,.finish-example small{display:block;position:relative}
+.finish-example strong{font-family:var(--font-head);font-weight:400;font-size:16px;margin-bottom:8px;text-transform:uppercase}
+.finish-example small{color:var(--muted);font-size:12.5px;line-height:1.55;text-transform:none;letter-spacing:0}
+@media (max-width:640px){.finish-examples{grid-template-columns:1fr}}
 .swatch{
   position:relative;border-radius:12px;height:64px;cursor:pointer;border:1px solid var(--line);
   overflow:hidden;transition:transform .3s var(--ease-out),border-color .3s,box-shadow .3s;
@@ -1061,6 +1073,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
           <div class="seg" role="group" aria-labelledby="lbl-system" id="systemSeg">
             <button type="button" class="active" data-system="flake">Chip / Flake</button>
             <button type="button" data-system="metallic">Metallic</button>
+            <button type="button" data-system="polish">Polish &amp; Seal</button>
             <button type="button" data-system="solid">Solid Color</button>
           </div>
         </div>
@@ -1148,6 +1161,36 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
               <button type="button" class="mhpreset" data-color="#c9ccd1" style="--c:#c9ccd1" aria-label="Silver"><span></span></button>
             </div>
             <span class="color-hex" id="metalHiHex">#f5f5f5</span>
+          </div>
+        </div>
+
+        <div class="lab-field" id="polishRow" style="display:none">
+          <label id="lbl-polish">Choose the shine level</label>
+          <div class="finish-examples" role="group" aria-labelledby="lbl-polish" id="polishSeg">
+            <button type="button" class="finish-example active" data-polish="standard" style="--sheen:.24;--shine:.08">
+              <strong>Standard Polish &amp; Seal</strong>
+              <small>400–800 grit. A clean satin finish that looks like refined concrete — natural, sealed, and easy to maintain.</small>
+            </button>
+            <button type="button" class="finish-example" data-polish="mirror" style="--sheen:.58;--shine:.30">
+              <strong>High End Mirror</strong>
+              <small>1500+ grit. A highly polished, reflective finish that bounces light like glass.</small>
+            </button>
+          </div>
+          <p class="polish-help">Polish &amp; Seal refines the concrete itself rather than coating it. Lower grit keeps a softer concrete look; higher grit creates a smoother, shinier surface.</p>
+        </div>
+
+        <div class="lab-field" id="polishColorRow" style="display:none">
+          <label>Concrete color <span style="text-transform:none;letter-spacing:0;opacity:.7">(the polished slab tone)</span></label>
+          <div class="color-pick-row">
+            <span class="cpick"><input type="color" id="polishColor" value="#858b90" aria-label="Pick polished concrete color"><span class="cpick-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0f14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span></span>
+            <div class="color-presets" id="polishColorPresets">
+              <button type="button" class="spreset active" data-color="#858b90" style="--c:#858b90" aria-label="Natural Gray"><span></span></button>
+              <button type="button" class="spreset" data-color="#a99f8d" style="--c:#a99f8d" aria-label="Warm Sand"><span></span></button>
+              <button type="button" class="spreset" data-color="#626a72" style="--c:#626a72" aria-label="Slate Gray"><span></span></button>
+              <button type="button" class="spreset" data-color="#4b5057" style="--c:#4b5057" aria-label="Graphite"><span></span></button>
+              <button type="button" class="spreset" data-color="#b5b8b5" style="--c:#b5b8b5" aria-label="Light Concrete"><span></span></button>
+            </div>
+            <span class="color-hex" id="polishColorHex">#858b90</span>
           </div>
         </div>
 
@@ -1341,6 +1384,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:64px 0 36
                 <option value="" disabled selected>Choose one…</option>
                 <option>Chip / flake broadcast</option>
                 <option>Metallic epoxy</option>
+                <option>Polish &amp; Seal</option>
                 <option>Solid color</option>
                 <option>Polished / sealed concrete</option>
                 <option>Custom blend from the Finish Lab</option>
@@ -1658,6 +1702,10 @@ void main(){
   let metalColor = "#1e56b8";
   let metalBase  = "#101114";
   let metalHi    = "#f5f5f5";
+  let polishFinish = "standard";
+  let polishColor = "#858b90";
+  const POLISH_LABELS={standard:"Standard Polish & Seal (400–800 grit)",mirror:"High End Mirror (1500+ grit)"};
+  const POLISH_NOTES={standard:"Satin sealed concrete · low-maintenance finish",mirror:"Mirror-polished concrete · high-reflection finish"};
   let solidColor = "#8a8f96";
 
   /* density label map for output + quote prefill */
@@ -1754,6 +1802,83 @@ void main(){
   }
   function mulberry(seed){ return function(){ seed=(seed*16807)%2147483647; return seed/2147483647; }; }
 
+  /* --- polished concrete: procedural slab texture (cached per color+size) --- */
+  const polishTex={key:null,img:null};
+  function buildConcreteTexture(side, baseHex){
+    const S=Math.min(720,Math.max(2,Math.round(side)));
+    const off=document.createElement("canvas"); off.width=S; off.height=S;
+    const c=off.getContext("2d",{willReadFrequently:true});
+    const base=hex2rgb(baseHex);
+    const rnd=mulberry(7);
+
+    /* 1) large-scale cream mottling — soft light/dark patches across the slab */
+    c.fillStyle="rgb("+base[0]+","+base[1]+","+base[2]+")";
+    c.fillRect(0,0,S,S);
+    for(let i=0;i<70;i++){
+      const x=rnd()*S, y=rnd()*S, r=S*(0.08+rnd()*0.30);
+      const a=0.04+rnd()*0.08;
+      const g=c.createRadialGradient(x,y,0,x,y,r);
+      const col=rnd()>0.5?"255,255,255":"0,0,0";
+      g.addColorStop(0,"rgba("+col+","+a+")");
+      g.addColorStop(1,"rgba("+col+",0)");
+      c.fillStyle=g; c.beginPath(); c.arc(x,y,r,0,7); c.fill();
+    }
+
+    /* 2) fine grain speckle, per pixel */
+    let img;
+    try{ img=c.getImageData(0,0,S,S); }catch(e){ return off; }
+    const d=img.data, rnd2=mulberry(99);
+    for(let i=0;i<d.length;i+=4){
+      const n=(rnd2()-0.5)*22;
+      d[i]=Math.max(0,Math.min(255,d[i]+n));
+      d[i+1]=Math.max(0,Math.min(255,d[i+1]+n));
+      d[i+2]=Math.max(0,Math.min(255,d[i+2]+n));
+    }
+    c.putImageData(img,0,0);
+
+    /* 3) exposed aggregate — salt-and-pepper stones blended toward the slab tone */
+    const rnd3=mulberry(1234);
+    const stones=Math.round(S*S/900);
+    const tones=[[210,205,195],[120,115,108],[88,84,78],[168,160,148],[70,70,72],[190,182,168]];
+    for(let i=0;i<stones;i++){
+      const x=rnd3()*S, y=rnd3()*S;
+      const r=0.6+rnd3()*rnd3()*3.2;
+      const t=tones[(rnd3()*tones.length)|0];
+      const k=0.45;
+      const sr=Math.round(t[0]*(1-k)+base[0]*k),
+            sg=Math.round(t[1]*(1-k)+base[1]*k),
+            sb=Math.round(t[2]*(1-k)+base[2]*k);
+      c.beginPath();
+      const pts=5+((rnd3()*4)|0);
+      for(let j=0;j<pts;j++){
+        const a=(j/pts)*Math.PI*2, rr=r*(0.7+rnd3()*0.5);
+        const px=x+Math.cos(a)*rr, py=y+Math.sin(a)*rr;
+        j?c.lineTo(px,py):c.moveTo(px,py);
+      }
+      c.closePath();
+      c.fillStyle="rgba("+sr+","+sg+","+sb+","+(0.55+rnd3()*0.35)+")";
+      c.fill();
+      /* tiny specular dot on some stones — polished "wet" look */
+      if(rnd3()>0.6){
+        c.beginPath(); c.arc(x-r*0.25,y-r*0.25,Math.max(0.4,r*0.22),0,7);
+        c.fillStyle="rgba(255,255,255,"+(0.10+rnd3()*0.14)+")"; c.fill();
+      }
+    }
+
+    /* 4) faint grinder swirl marks */
+    const rnd4=mulberry(555);
+    c.globalAlpha=0.05; c.strokeStyle="#ffffff";
+    for(let i=0;i<10;i++){
+      c.beginPath();
+      const y0=rnd4()*S;
+      c.moveTo(-20,y0);
+      c.bezierCurveTo(S*0.3,y0+rnd4()*40-20, S*0.7,y0+rnd4()*40-20, S+20, y0+rnd4()*30-15);
+      c.lineWidth=6+rnd4()*18; c.stroke();
+    }
+    c.globalAlpha=1;
+    return off;
+  }
+
   function resize(){
     const d = Math.min(devicePixelRatio||1,2);
     canvas.width = shell.clientWidth*d;
@@ -1843,6 +1968,46 @@ void main(){
     c.restore();
   }
 
+  /* polished concrete reflection pass — mirror-like bands + hotspot, controlled by grit */
+  function polishedConcreteSheen(x,y,side,mirror){
+    ctx.save();
+    ctx.beginPath(); ctx.rect(x,y,side,side); ctx.clip();
+
+    /* soft broad reflection across the slab */
+    const sweep=ctx.createLinearGradient(x,y,x+side,y+side);
+    sweep.addColorStop(0,"rgba(255,255,255,"+(mirror?0.10:0.045)+")");
+    sweep.addColorStop(.28,"rgba(255,255,255,"+(mirror?0.30:0.10)+")");
+    sweep.addColorStop(.34,"rgba(255,255,255,"+(mirror?0.10:0.03)+")");
+    sweep.addColorStop(.58,"rgba(255,255,255,"+(mirror?0.22:0.06)+")");
+    sweep.addColorStop(1,"rgba(255,255,255,"+(mirror?0.08:0.03)+")");
+    ctx.fillStyle=sweep; ctx.fillRect(x,y,side,side);
+
+    /* long horizontal light streaks like overhead lighting reflecting on polish */
+    ctx.globalCompositeOperation="screen";
+    const bands = mirror ? 4 : 2;
+    for(let i=0;i<bands;i++){
+      const yy=y+side*(0.16+i*0.16);
+      const g=ctx.createLinearGradient(x,yy,x+side,yy);
+      g.addColorStop(0,"rgba(255,255,255,0)");
+      g.addColorStop(.34,"rgba(255,255,255,"+(mirror?0.18:0.06)+")");
+      g.addColorStop(.5,"rgba(255,255,255,"+(mirror?0.38:0.12)+")");
+      g.addColorStop(.66,"rgba(255,255,255,"+(mirror?0.18:0.06)+")");
+      g.addColorStop(1,"rgba(255,255,255,0)");
+      ctx.fillStyle=g;
+      ctx.fillRect(x, yy-side*0.025, side, side*(mirror?0.045:0.025));
+    }
+
+    /* crisp mirror hotspot for high grit */
+    const hx=x+side*.66, hy=y+side*.34;
+    const spec=ctx.createRadialGradient(hx,hy,0,hx,hy,side*(mirror?.72:.38));
+    spec.addColorStop(0,"rgba(255,255,255,"+(mirror?0.52:0.16)+")");
+    spec.addColorStop(.22,"rgba(255,255,255,"+(mirror?0.24:0.08)+")");
+    spec.addColorStop(1,"rgba(255,255,255,0)");
+    ctx.fillStyle=spec; ctx.beginPath(); ctx.arc(hx,hy,side*(mirror?.72:.38),0,7); ctx.fill();
+
+    ctx.restore();
+  }
+
   /* draw one texture across a square (cover, single tile — no repeat, no seams) */
   function coverSquare(img,x,y,side){
     const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
@@ -1867,13 +2032,13 @@ void main(){
     ctx.fillStyle="rgba(0,0,0,.35)"; ctx.fillRect(0,horizon-4,W,4);
 
     /* ===== FLAKE & METALLIC -> single square sample (one tile, no seams) ===== */
-    if(system==="flake" || system==="metallic" || system==="solid"){
+    if(system==="flake" || system==="metallic" || system==="polish" || system==="solid"){
       const side=Math.min(W,H)*0.80;
       const x=(W-side)/2, y=(H-side)/2;
       /* soft shadow + dark surround so the swatch reads as a sample */
       ctx.save();
       ctx.shadowColor="rgba(0,0,0,.55)"; ctx.shadowBlur=Math.max(18,side*0.06); ctx.shadowOffsetY=side*0.03;
-      ctx.fillStyle=system==="flake"?baseColor:(system==="solid"?solidColor:shade(metalColor,-10));
+      ctx.fillStyle=system==="flake"?baseColor:(system==="solid"?solidColor:(system==="polish"?"#7f858b":shade(metalColor,-10)));
       ctx.fillRect(x,y,side,side);
       ctx.restore();
 
@@ -1901,6 +2066,21 @@ void main(){
           }
         }
         glossSquare(ctx,x,y,side,1.15);
+      } else if(system==="polish"){ /* polished concrete — procedural slab + grit-driven reflections */
+        const mirror = polishFinish==="mirror";
+        const key=polishColor+"@"+Math.round(side);
+        if(!polishTex.img || polishTex.key!==key){
+          polishTex.img=buildConcreteTexture(side, polishColor);
+          polishTex.key=key;
+        }
+        if(polishTex.img){
+          ctx.save(); ctx.beginPath(); ctx.rect(x,y,side,side); ctx.clip();
+          ctx.drawImage(polishTex.img,x,y,side,side);
+          ctx.restore();
+        } else {
+          ctx.save(); ctx.fillStyle=mix(polishColor,"#ffffff",mirror?0.18:0.08); ctx.fillRect(x,y,side,side); ctx.restore();
+        }
+        polishedConcreteSheen(x,y,side,mirror);
       } else if(system==="solid"){ /* solid — square swatch, subtle trowel texture, high gloss */
         if(TEX.ready.solid){
           sctx.clearRect(0,0,W,H);
@@ -1980,13 +2160,16 @@ void main(){
     } else if(system==="metallic"){
       blendName.textContent=hexName(metalHi)+" / "+hexName(metalColor)+" on "+hexName(metalBase);
       blendNote.textContent="Hand-blended metallic pigments · high-gloss finish";
+    } else if(system==="polish"){
+      blendName.textContent=(polishFinish==="mirror"?"High End Mirror":"Standard Polish & Seal")+" — "+hexName(polishColor);
+      blendNote.textContent=POLISH_NOTES[polishFinish]+" · no coating to peel";
     } else {
       blendName.textContent="Solid color — "+hexName(solidColor);
       blendNote.textContent="Seamless high-gloss solid color system";
     }
   }
   function hexName(hex){
-    const map={"#2b2b2b":"Black","#e9e6df":"White","#d8c9ae":"Beige","#c2ad8c":"Tan","#1e56b8":"Sapphire","#c47f2a":"Copper","#8a8f96":"Pewter","#0f6b5e":"Emerald","#101114":"Onyx","#3a3f45":"Charcoal","#4a3423":"Espresso","#232a44":"Midnight","#3d2b33":"Merlot","#26332b":"Forest","#f5f5f5":"White","#e8e0d0":"Pearl","#c9ccd1":"Silver"};
+    const map={"#2b2b2b":"Black","#e9e6df":"White","#d8c9ae":"Beige","#c2ad8c":"Tan","#1e56b8":"Sapphire","#c47f2a":"Copper","#8a8f96":"Pewter","#0f6b5e":"Emerald","#101114":"Onyx","#3a3f45":"Charcoal","#4a3423":"Espresso","#232a44":"Midnight","#3d2b33":"Merlot","#26332b":"Forest","#f5f5f5":"White","#e8e0d0":"Pearl","#c9ccd1":"Silver","#858b90":"Natural Gray","#a99f8d":"Warm Sand","#626a72":"Slate Gray","#4b5057":"Graphite","#b5b8b5":"Light Concrete"};
     return map[hex.toLowerCase()]||hex;
   }
 
@@ -2001,6 +2184,8 @@ void main(){
     document.getElementById("metallicRow").style.display = system==="metallic"?"block":"none";
     document.getElementById("metallicBaseRow").style.display = system==="metallic"?"block":"none";
     document.getElementById("metallicHiRow").style.display = system==="metallic"?"block":"none";
+    document.getElementById("polishRow").style.display = system==="polish"?"block":"none";
+    document.getElementById("polishColorRow").style.display = system==="polish"?"block":"none";
     document.getElementById("solidRow").style.display = system==="solid"?"block":"none";
     document.getElementById("baseRow").style.display = system==="flake"?"block":"none";
     updateOut(); if(prefersReduced) draw(0);
@@ -2079,6 +2264,26 @@ void main(){
   });
   metalHiIn.addEventListener("input",()=>setMetalHi(metalHiIn.value,null));
 
+  /* polish & seal finish */
+  document.getElementById("polishSeg").addEventListener("click",e=>{
+    const btn=e.target.closest("button"); if(!btn) return;
+    [...e.currentTarget.children].forEach(b=>b.classList.toggle("active",b===btn));
+    polishFinish=btn.dataset.polish; updateOut(); if(prefersReduced) draw(0);
+  });
+
+  /* polished concrete color */
+  const polishIn=document.getElementById("polishColor");
+  const polishColorHex=document.getElementById("polishColorHex");
+  function setPolishColor(c,btn){
+    polishColor=c; polishIn.value=c; polishColorHex.textContent=c;
+    document.querySelectorAll("#polishColorPresets .spreset").forEach(b=>b.classList.toggle("active",b===btn));
+    updateOut(); if(prefersReduced) draw(0);
+  }
+  document.getElementById("polishColorPresets").addEventListener("click",e=>{
+    const btn=e.target.closest("button"); if(!btn) return; setPolishColor(btn.dataset.color,btn);
+  });
+  polishIn.addEventListener("input",()=>setPolishColor(polishIn.value,null));
+
   /* solid color */
   const solidIn=document.getElementById("solidColor");
   const solidHex=document.getElementById("solidHex");
@@ -2099,6 +2304,7 @@ void main(){
     let sel,txt;
     if(system==="flake"){ sel="Chip / flake broadcast"; txt="Finish Lab: "+BLENDS[blend].name+" flake on a "+hexName(baseColor)+" base, "+(DENSITY_LABEL[density]||"full broadcast").toLowerCase()+", "+SIZE_LABEL[size]+"."; }
     else if(system==="metallic"){ sel="Metallic epoxy"; txt="Finish Lab: metallic pour — "+hexName(metalHi)+" ("+metalHi+") highlights, "+hexName(metalColor)+" ("+metalColor+") veins, on a "+hexName(metalBase)+" ("+metalBase+") base."; }
+    else if(system==="polish"){ sel="Polish & Seal"; txt="Finish Lab: "+POLISH_LABELS[polishFinish]+" in "+hexName(polishColor)+" ("+polishColor+") polished concrete."; }
     else { sel="Solid color"; txt="Finish Lab: solid color system in "+hexName(solidColor)+" ("+solidColor+")."; }
     [...finishSel.options].forEach(o=>{ if(o.text===sel) finishSel.value=o.value||o.text; });
     finishSel.selectedIndex=[...finishSel.options].findIndex(o=>o.text===sel);
