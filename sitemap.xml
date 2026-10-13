@@ -3,12 +3,34 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://glennsmithepoxy.com/</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://glennsmithepoxy.com/assets/logo.png</image:loc>
       <image:title>Glenn Smith Epoxy — Built on Prep. Finished with Pride.</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://glennsmithepoxy.com/projects.html</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://glennsmithepoxy.com/assets/projects/job1-after.jpg</image:loc>
+      <image:title>Job 1 — Chip flake epoxy garage floor after installation</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://glennsmithepoxy.com/assets/projects/job1-before.jpg</image:loc>
+      <image:title>Job 1 — Bare concrete garage floor before epoxy</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://glennsmithepoxy.com/assets/projects/job2-after.jpg</image:loc>
+      <image:title>Job 2 — Chip flake epoxy garage floor after installation</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://glennsmithepoxy.com/assets/projects/job2-before.jpg</image:loc>
+      <image:title>Job 2 — Bare concrete garage floor before epoxy</image:title>
     </image:image>
   </url>
   <url>
